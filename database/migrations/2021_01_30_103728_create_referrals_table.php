@@ -17,7 +17,10 @@ class CreateReferralsTable extends Migration
             $table->id();
             $table->string('candidate_name')->nullable();
             $table->date('date_of_birth')->nullable();
-            $table->string('position')->nullable();
+            $table->integer('position')->nullable();
+            $table->string('skill_set')->nullable();
+            $table->string('status')->nullable();
+            $table->string('shorts_notes')->nullable();
             $table->string('resume')->nullable();
             $table->timestamps();
         });

@@ -13,10 +13,7 @@ class EmployeController extends Controller
      */
     function __construct()
     {
-         $this->middleware('permission:employe-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
-         $this->middleware('permission:employe-create', ['only' => ['create','store']]);
-         $this->middleware('permission:employe-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:employe-delete', ['only' => ['destroy']]);
+         $this->middleware('auth');
     }
 
     /**

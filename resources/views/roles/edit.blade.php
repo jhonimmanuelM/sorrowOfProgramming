@@ -53,4 +53,4 @@
 
 
 @endsection
-<p class="text-center text-primary"><small>Tutorial by ItSolutionStuff.com</small></p>
+<p class="text-center text-primary"><small>BlackBox by Sorrow of Programming</small></p>
