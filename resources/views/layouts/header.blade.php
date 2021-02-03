@@ -33,8 +33,8 @@
                             Referrals <span class="caret"></span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Referrals</a>
-                            <a class="dropdown-item" href="#">My Referrals</a>
+                            <a class="dropdown-item" href="{{ route('referrals.all') }}">Referrals</a>
+                            <a class="dropdown-item" href="{{ route('referrals.index') }}">My Referrals</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">

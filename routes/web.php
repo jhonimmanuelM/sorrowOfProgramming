@@ -43,6 +43,16 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/positions/create', 'App\Http\Controllers\Setting\PositionController@create')->name('positions.create');
 	Route::get('/positions/delete/{id}', 'App\Http\Controllers\Setting\PositionController@delete')->name('positions.delete');
 	
+	//Refferals
+	Route::get('/referrals/all', 'App\Http\Controllers\Referal\ReferalController@getAll')->name('referrals.all');
+	Route::get('/referrals', 'App\Http\Controllers\Referal\ReferalController@index')->name('referrals.index');
+	Route::get('/referrals/create', 'App\Http\Controllers\Referal\ReferalController@create')->name('referrals.create');
+	Route::post('/referrals', 'App\Http\Controllers\Referal\ReferalController@store')->name('referrals.store');
+	Route::get('/referrals/edit/{id}', 'App\Http\Controllers\Referal\ReferalController@edit')->name('referrals.edit');
+	Route::post('/referrals/update', 'App\Http\Controllers\Referal\ReferalController@update')->name('referrals.update');
+	Route::get('/referrals/delete/{id}', 'App\Http\Controllers\Referal\ReferalController@delete')->name('referrals.delete');
+
+
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('products', ProductController::class);
