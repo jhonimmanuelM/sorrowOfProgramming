@@ -1,31 +1,35 @@
 <html lang="{{ app()->getLocale() }}">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'BlackBox') }}</title>
-    <!-- Scripts -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>Otika - Admin Dashboard Template</title>
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="{{ asset('assets/css/app.min.css') }}">
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
+  <!-- Custom style CSS -->
+  <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
+  <link rel='shortcut icon' type='image/x-icon' href="{{ asset('assets/img/favicon.ico') }}" />
 </head>
 <body>
+    <div class="loader"></div>
     <div id="app">
-        @include('layouts.header')
-
-        <main class="py-4">
-            <div class="container">
-            @yield('content')
-            </div>
-        </main>
+        <div class="main-wrapper main-wrapper-1">
+            @if (Route::has('login'))
+            @auth
+                @include('layouts.header')
+                @include('layouts.sidebar')
+            @endif
+            @endif
+          <div class="main-content">
+            <section class="section">
+                @yield('content')
+            </section>
+            @include('layouts.setting-sidebar')
+          </div>
+            @include('layouts.footer')
+        </div>
     </div>
 </body>
 </html>

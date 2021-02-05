@@ -19,5 +19,5 @@
         </div>
     @endif
 
-    <p class="text-center text-primary"><small>BlackBox by Sorrow of Programming</small></p>
+    
 @endsection

@@ -30,59 +30,59 @@
    <th>Billable</th>
    <th>No of Positions</th>
    <th>Action</th>
-</tr>
-@if(count($new_hire_requests) > 0)
-    @foreach ($new_hire_requests as $key => $new_hire_request)
-    <tr>
-        <td>
-            @php
-                $temp = $positions->where('id',$new_hire_request->id)->pluck('position');
-                if(!empty($temp) && $temp && $temp->count() > 0){
-                    $temp_positions = [];
-                    foreach($temp as $tem){
-                        $temp_positions[] = $tem;
+ </tr>
+    @if(count($new_hire_requests) > 0)
+        @foreach ($new_hire_requests as $key => $new_hire_request)
+        <tr>
+            <td>
+                @php
+                    $temp = $positions->where('id',$new_hire_request->id)->pluck('position');
+                    if(!empty($temp) && $temp && $temp->count() > 0){
+                        $temp_positions = [];
+                        foreach($temp as $tem){
+                            $temp_positions[] = $tem;
+                        }
+                        $temp = implode(",",$temp_positions);
+                    }else{
+                        $temp = '';
                     }
-                    $temp = implode(",",$temp_positions);
-                }else{
-                    $temp = '';
-                }
-            @endphp
-            {{$temp}}
-        </td>
-        <td>{{$skills[$new_hire_request->id]}}</td>
-        <td>{{ $new_hire_request->experience }} Months</td>
-        <td>
-            @if($new_hire_request->employee_type == '1')
-                Full Time
-            @else
-                Contract
-            @endif
-        </td>
-        <td>
-            @if($new_hire_request->replacement == '1')
-                Yes
-            @else
-                No
-            @endif
-        </td>
-        <td>{{ $new_hire_request->no_of_positions }}</td>
-        <td>
-            <a class="btn btn-info" href="#">View</a>
-            <a class="btn btn-primary" href="{{ route('nhr.edit',$new_hire_request->id) }}">Edit</a>
-            <!-- <a class="btn btn-danger" href="{{ route('nhr.delete',$new_hire_request->id) }}">Delete</a> -->
-        </td>
+                @endphp
+                {{$temp}}
+            </td>
+            <td>{{$skills[$new_hire_request->id]}}</td>
+            <td>{{ $new_hire_request->experience }} Months</td>
+            <td>
+                @if($new_hire_request->employee_type == '1')
+                    Full Time
+                @else
+                    Contract
+                @endif
+            </td>
+            <td>
+                @if($new_hire_request->replacement == '1')
+                    Yes
+                @else
+                    No
+                @endif
+            </td>
+            <td>{{ $new_hire_request->no_of_positions }}</td>
+            <td>
+                <a class="btn btn-info" href="#">View</a>
+                <a class="btn btn-primary" href="{{ route('nhr.edit',$new_hire_request->id) }}">Edit</a>
+                <!-- <a class="btn btn-danger" href="{{ route('nhr.delete',$new_hire_request->id) }}">Delete</a> -->
+            </td>
+        </tr>
+        @endforeach
+    @else
+    <tr>
+        <td colspan="7" align="center">No Record Found</td>
     </tr>
-    @endforeach
-@else
-<tr>
-    <td colspan="7" align="center">No Record Found</td>
-</tr>
-@endif
+    @endif
 </table>
 
 
 {!! $new_hire_requests->render() !!}
 
 
-<p class="text-center text-primary"><small>BlackBox by Sorrow of Programming</small></p>
+
 @endsection
