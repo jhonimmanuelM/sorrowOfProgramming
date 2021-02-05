@@ -43,6 +43,14 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/positions/create', 'App\Http\Controllers\Setting\PositionController@create')->name('positions.create');
 	Route::get('/positions/delete/{id}', 'App\Http\Controllers\Setting\PositionController@delete')->name('positions.delete');
 	
+	//Setting.Positions
+	Route::get('/teams', 'App\Http\Controllers\Setting\TeamController@index')->name('teams.index');
+	Route::post('/teams', 'App\Http\Controllers\Setting\TeamController@store')->name('teams.store');
+	Route::get('/teams/edit/{id}', 'App\Http\Controllers\Setting\TeamController@edit')->name('teams.edit');
+	Route::post('/teams/update', 'App\Http\Controllers\Setting\TeamController@update')->name('teams.update');
+	Route::get('/teams/create', 'App\Http\Controllers\Setting\TeamController@create')->name('teams.create');
+	Route::get('/teams/delete/{id}', 'App\Http\Controllers\Setting\TeamController@delete')->name('teams.delete');
+
 	//Refferals
 	Route::get('/referrals/all', 'App\Http\Controllers\Referal\ReferalController@getAll')->name('referrals.all');
 	Route::get('/referrals', 'App\Http\Controllers\Referal\ReferalController@index')->name('referrals.index');
@@ -52,6 +60,14 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::post('/referrals/update', 'App\Http\Controllers\Referal\ReferalController@update')->name('referrals.update');
 	Route::get('/referrals/delete/{id}', 'App\Http\Controllers\Referal\ReferalController@delete')->name('referrals.delete');
 
+	//NHR
+	Route::get('/nhr/all', 'App\Http\Controllers\Nhr\NhrController@getAll')->name('nhr.all');
+	Route::get('/nhr', 'App\Http\Controllers\Nhr\NhrController@index')->name('nhr.index');
+	Route::get('/nhr/create', 'App\Http\Controllers\Nhr\NhrController@create')->name('nhr.create');
+	Route::post('/nhr', 'App\Http\Controllers\Nhr\NhrController@store')->name('nhr.store');
+	Route::get('/nhr/edit/{id}', 'App\Http\Controllers\Nhr\NhrController@edit')->name('nhr.edit');
+	Route::post('/nhr/update', 'App\Http\Controllers\Nhr\NhrController@update')->name('nhr.update');
+	Route::get('/nhr/delete/{id}', 'App\Http\Controllers\Nhr\NhrController@delete')->name('nhr.delete');
 
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);

@@ -39,9 +39,19 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            NHR <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('nhr.all') }}">NHR</a>
+                            <a class="dropdown-item" href="{{ route('nhr.index') }}">My NHR</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             Setting <span class="caret"></span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('teams.index') }}">Teams</a>
                             <a class="dropdown-item" href="{{ route('positions.index') }}">Positions</a>
                             <a class="dropdown-item" href="{{ route('skills.index') }}">Skill Sets</a>
                         </div>

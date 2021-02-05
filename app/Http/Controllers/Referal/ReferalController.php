@@ -16,7 +16,7 @@ class ReferalController extends Controller
     }
 
     public function getAll(){
-    	$referrals = DB::table('referrals')->where('referred_by',Auth::user()->id)->orderBy('updated_at','DESC')->paginate(10);
+    	$referrals = DB::table('referrals')->orderBy('updated_at','DESC')->paginate(10);
     	$positions = DB::table('employee_positions')->join('referral_position_mappings','referral_position_mappings.position_id','=','employee_positions.id')->whereIn('referral_position_mappings.referral_id',$referrals->pluck('id'))->select('referral_position_mappings.referral_id','employee_positions.position')->get();
     	$skills = DB::table('referal_skill_sets')->join('referral_skill_mappings','referral_skill_mappings.skill_id','=','referal_skill_sets.id')->whereIn('referral_skill_mappings.referral_id',$referrals->pluck('id'))->select('referral_skill_mappings.referral_id','referal_skill_sets.skill')->get();
     	$refered_by = array();
@@ -39,7 +39,7 @@ class ReferalController extends Controller
 	}
 
 	public function create(){
-    	$positions = DB::table('employee_positions')->paginate(10);
+    	$positions = DB::table('employee_positions')->get();
     	$skills = DB::table('referal_skill_sets')->get();
     	return view('referral.create',compact('positions','skills'));
 	}
@@ -87,7 +87,7 @@ class ReferalController extends Controller
 
 	public function edit($id){
 		$referral = DB::table('referrals')->where('id',$id)->first();
-    	$positions = DB::table('employee_positions')->paginate(10);
+    	$positions = DB::table('employee_positions')->get();
     	$skills = DB::table('referal_skill_sets')->get();
     	$referral_positions = DB::table('referral_position_mappings')->where('referral_id',$id)->pluck('position_id')->toArray();
 		$referral_skills = DB::table('referral_skill_mappings')->where('referral_id',$id)->pluck('skill_id')->toArray();

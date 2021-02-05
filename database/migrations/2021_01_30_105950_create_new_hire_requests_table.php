@@ -18,14 +18,16 @@ class CreateNewHireRequestsTable extends Migration
             $table->integer('candidate_role_id');
             $table->integer('team_id');
             $table->integer('experience');
-            $table->integer('skills');
+            $table->string('skills');
             $table->integer('employee_type');
             $table->integer('billing');
             $table->integer('no_of_positions');
-            $table->string('job_description');
-            $table->string('replacement');
+            $table->longtext('job_description');
+            $table->integer('replacement');
+            $table->string('replacement_for');
             $table->integer('approved_by');
             $table->integer('raised_by');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }
