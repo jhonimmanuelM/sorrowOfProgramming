@@ -10,17 +10,8 @@
     </div>
 </div>
 
+@include('general.alerts')
 
-@if ($message = Session::get('success'))
-<div class="alert alert-success">
-  <p>{{ $message }}</p>
-</div>
-@endif
-@if ($message = Session::get('failed'))
-<div class="alert alert-danger">
-  <p>{{ $message }}</p>
-</div>
-@endif
 {!! Form::open(array('route' => 'nhr.update','method'=>'POST', 'enctype' => 'multipart/form-data')) !!}
     <input type="hidden" name="id" value="{{$new_hire_request->id}}">
     <div class="row">

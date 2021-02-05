@@ -68,6 +68,8 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/nhr/edit/{id}', 'App\Http\Controllers\Nhr\NhrController@edit')->name('nhr.edit');
 	Route::post('/nhr/update', 'App\Http\Controllers\Nhr\NhrController@update')->name('nhr.update');
 	Route::get('/nhr/delete/{id}', 'App\Http\Controllers\Nhr\NhrController@delete')->name('nhr.delete');
+	Route::get('/nhr/assign-recruiter/{id}', 'App\Http\Controllers\Nhr\NhrController@assignRecruiter')->name('nhr.assign-recruiter');
+	Route::post('/nhr/assign-recruiter', 'App\Http\Controllers\Nhr\NhrController@saveAssignRecruiter')->name('nhr.assigned-recruiter');
 
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);

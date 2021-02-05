@@ -11,16 +11,8 @@
 </div>
 
 
-@if ($message = Session::get('success'))
-<div class="alert alert-success">
-  <p>{{ $message }}</p>
-</div>
-@endif
-@if ($message = Session::get('failed'))
-<div class="alert alert-danger">
-  <p>{{ $message }}</p>
-</div>
-@endif
+@include('general.alerts')
+
 {!! Form::open(array('route' => 'teams.store','method'=>'POST')) !!}
     <div class="row">
         <div class="col-md-3"></div>

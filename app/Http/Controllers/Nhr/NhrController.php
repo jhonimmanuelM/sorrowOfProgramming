@@ -31,7 +31,8 @@ class NhrController extends Controller
     	}
     	$teams = DB::table('teams')->whereIn('id',$new_hire_requests->pluck('team_id'))->get();
     	$users = DB::table('users')->whereIn('id',$new_hire_requests->pluck('raised_by'))->get();
-		return view('new_hire_request.all',compact('new_hire_requests','positions','skills','users','teams'));
+    	$recruiters = DB::table('new_hire_request_rrecruiters')->whereIn('new_hire_request_rrecruiters.NHR_id',$new_hire_requests->pluck('id'))->join('users','users.id','=','new_hire_request_rrecruiters.employee_id')->select('new_hire_request_rrecruiters.NHR_id','users.name')->get();
+		return view('new_hire_request.all',compact('new_hire_requests','positions','skills','users','teams','recruiters'));
     }
 
 	public function index(){
@@ -115,5 +116,29 @@ class NhrController extends Controller
 		DB::table('new_hire_requests')->where('id',$id)->delete();
 
 		return redirect()->route('nhr.index')->with('success','NHR Deleted successfully');
+	}
+
+	public function assignRecruiter($id){
+		$new_hire_request = DB::table('new_hire_requests')->where('id',$id)->first();
+    	$positions = DB::table('employee_positions')->where('id',$new_hire_request->candidate_role_id)->first();
+		$nhr_skill = explode(',', $new_hire_request->skills);
+		$skills = DB::table('referal_skill_sets')->whereIn('id',$nhr_skill)->pluck('skill')->toArray();
+    	$teams = DB::table('teams')->where('id',$new_hire_request->team_id)->first();
+    	$nhr_replacement = explode(',', $new_hire_request->replacement_for);
+    	$users = DB::table('users')->get();
+    	return view('new_hire_request.assign-recruiter',compact('new_hire_request','positions','nhr_skill','skills','teams','nhr_replacement','users'));
+	}
+
+	public function saveAssignRecruiter(Request $request){
+
+		DB::table('new_hire_request_rrecruiters')->insert([
+			'employee_id' => $request->recruiter,
+			'NHR_id' => $request->id
+		]);
+
+		DB::table('new_hire_requests')->where('id',$request->id)->update([
+			'status' => 2
+		]);
+		return redirect()->route('nhr.all')->with('success','Recruiter assigned NHR Successfully');
 	}
 }

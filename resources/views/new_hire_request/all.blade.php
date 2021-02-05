@@ -10,13 +10,7 @@
     </div>
 </div>
 
-
-@if ($message = Session::get('success'))
-<div class="alert alert-success">
-  <p>{{ $message }}</p>
-</div>
-@endif
-
+@include('general.alerts')
 
 <table class="table table-bordered">
  <tr>
@@ -28,6 +22,7 @@
    <th>Employeement Type</th>
    <th>Billable</th>
    <th>No of Positions</th>
+   <th>Recruiter</th>
    <th>Action</th>
 </tr>
 @if(count($new_hire_requests) > 0)
@@ -88,9 +83,27 @@
         </td>
         <td>{{ $new_hire_request->no_of_positions }}</td>
         <td>
-            <a class="btn btn-info" href="#">View</a>
-            <!-- <a class="btn btn-primary" href="{{ route('nhr.edit',$new_hire_request->id) }}">Edit</a> -->
-            <!-- <a class="btn btn-danger" href="{{ route('nhr.delete',$new_hire_request->id) }}">Delete</a> -->
+            @if($new_hire_request->status < 2)
+                Not Assigned
+            @else
+                @php
+                    $temp = $recruiters->where('NHR_id',$new_hire_request->id)->first();
+                    if($temp){
+                        $temp = $temp->name;
+                    }else{
+                        $temp = 'NA';
+                    }
+                @endphp
+                {{$temp}}
+            @endif
+        </td>
+        <td>
+            @if($new_hire_request->status == 1)
+                <a class="btn btn-info" href="{{ route('nhr.assign-recruiter',$new_hire_request->id) }}">Assign Recruiter</a>
+            @endif
+            @if($new_hire_request->status != 1)
+                <a class="btn btn-info" href="#">View Progress</a>
+            @endif
         </td>
     </tr>
     @endforeach

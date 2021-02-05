@@ -11,16 +11,8 @@
 </div>
 
 
-@if ($message = Session::get('success'))
-<div class="alert alert-success">
-  <p>{{ $message }}</p>
-</div>
-@endif
-@if ($message = Session::get('failed'))
-<div class="alert alert-danger">
-  <p>{{ $message }}</p>
-</div>
-@endif
+@include('general.alerts')
+
 {!! Form::open(array('route' => 'referrals.update','method'=>'POST', 'enctype' => 'multipart/form-data')) !!}
     <input type="hidden" value="{{$referral->id}}" name="id">
     <div class="row">

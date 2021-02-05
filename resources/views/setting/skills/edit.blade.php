@@ -11,16 +11,8 @@
 </div>
 
 
-@if ($message = Session::get('success'))
-<div class="alert alert-success">
-  <p>{{ $message }}</p>
-</div>
-@endif
-@if ($message = Session::get('failed'))
-<div class="alert alert-danger">
-  <p>{{ $message }}</p>
-</div>
-@endif
+@include('general.alerts')
+
 {!! Form::open(array('route' => 'skills.update','method'=>'POST')) !!}
     <input type="hidden" name="id" value="{{$skill->id}}">
     <div class="row">

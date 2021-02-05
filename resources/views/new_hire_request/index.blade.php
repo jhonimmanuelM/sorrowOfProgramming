@@ -13,13 +13,7 @@
     </div>
 </div>
 
-
-@if ($message = Session::get('success'))
-<div class="alert alert-success">
-  <p>{{ $message }}</p>
-</div>
-@endif
-
+@include('general.alerts')
 
 <table class="table table-bordered">
  <tr>
