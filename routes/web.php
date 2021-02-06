@@ -71,6 +71,14 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/nhr/assign-recruiter/{id}', 'App\Http\Controllers\Nhr\NhrController@assignRecruiter')->name('nhr.assign-recruiter');
 	Route::post('/nhr/assign-recruiter', 'App\Http\Controllers\Nhr\NhrController@saveAssignRecruiter')->name('nhr.assigned-recruiter');
 
+	//candidates
+	Route::get('/candidates', 'App\Http\Controllers\Candidate\CandidateController@index')->name('candidates.index');
+	Route::post('/candidates', 'App\Http\Controllers\Candidate\CandidateController@store')->name('candidates.store');
+	Route::get('/candidates/edit/{id}', 'App\Http\Controllers\Candidate\CandidateController@edit')->name('candidates.edit');
+	Route::post('/candidates/update', 'App\Http\Controllers\Candidate\CandidateController@update')->name('candidates.update');
+	Route::get('/candidates/create', 'App\Http\Controllers\Candidate\CandidateController@create')->name('candidates.create');
+	Route::get('/candidates/delete/{id}', 'App\Http\Controllers\Candidate\CandidateController@delete')->name('candidates.delete');
+
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('products', ProductController::class);

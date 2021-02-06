@@ -43,6 +43,9 @@
           <li><a class="nav-link" href="{{ route('skills.index') }}">Skill Sets</a></li>
         </ul>
       </li>
+      <li class="dropdown active">
+        <a href="{{ route('candidates.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Candidates</span></a>
+      </li>
     </ul>
   </aside>
 </div>

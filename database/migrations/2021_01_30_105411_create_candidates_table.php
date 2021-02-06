@@ -16,14 +16,14 @@ class CreateCandidatesTable extends Migration
         Schema::create('candidates', function (Blueprint $table) {
             $table->id();
             $table->string('first_name');
-            $table->string('last_name');
-            $table->date('date_of_birth');
+            $table->string('last_name')->nullable();
+            $table->date('date_of_birth')->nullable();
             $table->string('email')->unique();
             $table->integer('candidate_role');
-            $table->integer('skill_id');
-            $table->integer('ctc');
-            $table->integer('ectc');
-            $table->integer('notice_period');
+            $table->string('skills');
+            $table->float('ctc')->nullable();
+            $table->float('ectc')->nullable();
+            $table->integer('notice_period')->nullable();
             $table->integer('year_of_experience');
             $table->string('current_company_name')->nullable();
             $table->string('previous_company_name')->nullable();
