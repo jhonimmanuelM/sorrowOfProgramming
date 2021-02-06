@@ -11,30 +11,37 @@
         <a href="{{ url('/') }}" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
       </li>
       <li class="dropdown">
+      @can('user-list')
         <a href="#" class="menu-toggle nav-link has-dropdown"><i
             data-feather="briefcase"></i><span>User Management</span></a>
         <ul class="dropdown-menu">
           <li><a class="nav-link" href="{{ route('users.index') }}">Users</a></li>
           <li><a class="nav-link" href="{{ route('roles.index') }}">Roles</a></li>
         </ul>
+        @endcan
       </li>
       <li class="dropdown">
+      @can('referral-list')
         <a href="#" class="menu-toggle nav-link has-dropdown"><i
             data-feather="briefcase"></i><span>Referrals</span></a>
         <ul class="dropdown-menu">
           <li><a class="nav-link" href="{{ route('referrals.all') }}">Referrals</a></li>
           <li><a class="nav-link" href="{{ route('referrals.index') }}">My Referrals</a></li>
         </ul>
+        @endcan
       </li>
       <li class="dropdown">
+      @can('NHR-list')
         <a href="#" class="menu-toggle nav-link has-dropdown"><i
             data-feather="briefcase"></i><span>NHR</span></a>
         <ul class="dropdown-menu">
           <li><a class="nav-link" href="{{ route('nhr.all') }}">NHR</a></li>
           <li><a class="nav-link" href="{{ route('nhr.index') }}">My NHR</a></li>
         </ul>
+        @endcan
       </li>
       <li class="dropdown">
+      @can('settings-list')
         <a href="#" class="menu-toggle nav-link has-dropdown"><i
             data-feather="briefcase"></i><span>Setting</span></a>
         <ul class="dropdown-menu">
@@ -42,6 +49,7 @@
           <li><a class="nav-link" href="{{ route('positions.index') }}">Positions</a></li>
           <li><a class="nav-link" href="{{ route('skills.index') }}">Skill Sets</a></li>
         </ul>
+        @endcan
       </li>
       <li class="dropdown active">
         <a href="{{ route('candidates.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Candidates</span></a>

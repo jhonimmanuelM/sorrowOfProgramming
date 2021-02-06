@@ -12,7 +12,11 @@ class ReferalController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+		$this->middleware('auth');
+		$this->middleware('permission:referral-list|referral-create|referral-edit|referral-delete', ['only' => ['index','show','getAll']]);
+        $this->middleware('permission:referral-create', ['only' => ['create','store']]);
+        $this->middleware('permission:referral-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:referral-delete', ['only' => ['delete']]);
     }
 
     public function getAll(){
