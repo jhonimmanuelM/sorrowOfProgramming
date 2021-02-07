@@ -23,7 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'employee_number','google_id',
+        'employee_number','google_id','avatar','first_name','last_name','gender','date_of_birth','status','mobile','emergency_contact_name','emergency_contact_number','father_name','spouse_name'
     ];
 
     /**
