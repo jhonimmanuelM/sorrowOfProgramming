@@ -12,7 +12,11 @@ class NhrController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+		$this->middleware('auth');
+		$this->middleware('permission:NHR-list|NHR-create|NHR-edit|NHR-delete', ['only' => ['index','show','getAll']]);
+        $this->middleware('permission:NHR-create', ['only' => ['create','store']]);
+        $this->middleware('permission:NHR-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:NHR-delete', ['only' => ['delete']]);
     }
 
     public function getAll(){

@@ -7,7 +7,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\EmployeController;
-
+use App\Http\Controllers\GoogleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +21,9 @@ use App\Http\Controllers\EmployeController;
 
 
 Auth::routes();
+
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
+Route::get('/callback', [GoogleController::class, 'handleGoogleCallback']);
 
 
 Route::group(['middleware' => ['auth']], function() {
@@ -95,3 +98,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('products', ProductController::class);
     Route::resource('employe', EmployeController::class);
 });
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');

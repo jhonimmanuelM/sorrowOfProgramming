@@ -1,0 +1,15 @@
+.card {
+  border-top: 2px solid #6777ef;
+}
+.card .card-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+span.selectgroup-button.selectgroup-button-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*# sourceMappingURL=custom.css.map */

@@ -15,6 +15,10 @@ class UserController extends Controller
     function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index','show']]);
+        $this->middleware('permission:user-create', ['only' => ['create','store']]);
+        $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:user-delete', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.
@@ -47,14 +51,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $this->validate($request, [
-            'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
-            'roles' => 'required'
+            'roles' => 'required',
+            'gender_id' =>'required',
+            'DOB' => 'required',
+            'mobile_number' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required'
         ]);
-    
-        $input = $request->all();
+        $empId = User::orderBy('id','DESC')->first();
+        $empId =$empId->employee_number + 1;
+        $input = $request->all() + ['name' => $request->first_name.' '.$request->last_name,'employee_number' => $empId];
         $input['password'] = Hash::make($input['password']);
     
         $user = User::create($input);
@@ -101,18 +111,16 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
-            'password' => 'same:confirm-password',
-            'roles' => 'required'
+            'roles' => 'required',
+            'gender_id' =>'required',
+            'DOB' => 'required',
+            'mobile_number' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required'
         ]);
     
-        $input = $request->all();
-        if(!empty($input['password'])){ 
-            $input['password'] = Hash::make($input['password']);
-        }else{
-            $input = Arr::except($input,array('password'));    
-        }
+        $input = $request->all() + ['name' => $request->first_name.' '.$request->last_name];
     
         $user = User::find($id);
         $user->update($input);
