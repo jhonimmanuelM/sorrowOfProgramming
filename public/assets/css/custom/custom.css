@@ -6,4 +6,10 @@
   justify-content: space-between;
 }
 
+span.selectgroup-button.selectgroup-button-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /*# sourceMappingURL=custom.css.map */
