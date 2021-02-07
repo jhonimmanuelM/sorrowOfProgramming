@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCandidateInterviewsTable extends Migration
+class CreateReferralCandidateMappingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,10 @@ class CreateCandidateInterviewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('candidate_interviews', function (Blueprint $table) {
+        Schema::create('referral_candidate_mappings', function (Blueprint $table) {
             $table->id();
+            $table->integer('referral_id');
             $table->integer('candidate_id');
-            $table->integer('NHR_id');
-            $table->integer('employee_id');
-            $table->string('interview_type');
-            $table->dateTime('scheduled_at');
-            $table->integer('status')->default(0);
-            $table->longtext('feedback')->nullable();
             $table->timestamps();
         });
     }
@@ -33,6 +28,6 @@ class CreateCandidateInterviewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('candidate_interviews');
+        Schema::dropIfExists('referral_candidate_mappings');
     }
 }

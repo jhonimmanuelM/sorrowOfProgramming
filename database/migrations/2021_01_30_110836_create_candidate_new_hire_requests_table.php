@@ -17,6 +17,8 @@ class CreateCandidateNewHireRequestsTable extends Migration
             $table->id();
             $table->integer('candidate_id');
             $table->integer('NHR_id');
+            $table->integer('status')->default(0);
+            $table->longText('progress');
             $table->timestamps();
         });
     }

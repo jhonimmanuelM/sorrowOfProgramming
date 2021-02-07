@@ -101,8 +101,11 @@
             @if($new_hire_request->status == 1)
                 <a class="btn btn-info" href="{{ route('nhr.assign-recruiter',$new_hire_request->id) }}">Assign Recruiter</a>
             @endif
-            @if($new_hire_request->status != 1)
-                <a class="btn btn-info" href="#">View Progress</a>
+            @if($new_hire_request->status == 2 || $new_hire_request->status == 3)
+                <a class="btn btn-info" href="{{ route('nhr.view-progress',$new_hire_request->id) }}">View</a>
+            @endif
+            @if($new_hire_request->status == 3)
+                <a class="btn btn-success" href="#">Validate Checklist</a>
             @endif
         </td>
     </tr>

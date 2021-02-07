@@ -61,9 +61,15 @@
             </td>
             <td>{{ $new_hire_request->no_of_positions }}</td>
             <td>
-                <a class="btn btn-info" href="#">View</a>
-                <a class="btn btn-primary" href="{{ route('nhr.edit',$new_hire_request->id) }}">Edit</a>
-                <!-- <a class="btn btn-danger" href="{{ route('nhr.delete',$new_hire_request->id) }}">Delete</a> -->
+                @if($new_hire_request->status < 3)
+                    <a class="btn btn-info" href="{{ route('nhr.view-progress',$new_hire_request->id) }}">View</a>
+                    <a class="btn btn-primary" href="{{ route('nhr.edit',$new_hire_request->id) }}">Edit</a>
+                    <!-- <a class="btn btn-danger" href="{{ route('nhr.delete',$new_hire_request->id) }}">Delete</a> -->
+                @else
+                    @if($new_hire_request->status == 3)
+                        <a class="btn btn-success" href="#">Validate Checklist</a>
+                    @endif
+                @endif
             </td>
         </tr>
         @endforeach

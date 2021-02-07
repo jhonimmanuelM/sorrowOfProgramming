@@ -60,6 +60,7 @@
                 <td>{{ $candidate->previous_company_name }}</td> -->
                 <td>
                     <a class="btn btn-primary" href="{{ route('candidates.edit',$candidate->id) }}">Edit</a>
+                    <a class="btn btn-primary" href="{{ route('candidates.view',$candidate->id) }}">View</a>
                 @if($candidate->resume)
                     <a class="btn btn-success" href="{{url('/uploads')}}/{{$candidate->resume}}">Resume</a>
                 @endif

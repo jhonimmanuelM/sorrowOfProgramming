@@ -70,11 +70,22 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/nhr/delete/{id}', 'App\Http\Controllers\Nhr\NhrController@delete')->name('nhr.delete');
 	Route::get('/nhr/assign-recruiter/{id}', 'App\Http\Controllers\Nhr\NhrController@assignRecruiter')->name('nhr.assign-recruiter');
 	Route::post('/nhr/assign-recruiter', 'App\Http\Controllers\Nhr\NhrController@saveAssignRecruiter')->name('nhr.assigned-recruiter');
-
+	Route::get('/nhr/view-progress/{id}', 'App\Http\Controllers\Nhr\NhrController@viewProgress')->name('nhr.view-progress');
+	Route::get('/nhr/assign-candidate/{id}', 'App\Http\Controllers\Nhr\NhrController@assignCandidate')->name('nhr.assign-candidate');
+	Route::get('/nhr/assign-refferal/{id}', 'App\Http\Controllers\Nhr\NhrController@assignRefferal')->name('nhr.assign-refferal');
+	Route::post('/nhr/assign-refferal', 'App\Http\Controllers\Nhr\NhrController@saveAssignRefferal')->name('nhr.save.assign.refferal');
+	Route::get('/nhr/assign-candidate/{nhr_id}/{candidate_id}', 'App\Http\Controllers\Nhr\NhrController@saveAssignCandidate')->name('nhr.save-assign-candidate');
+	Route::get('/nhr/view-nhr-candidate-pregress/{nhr_id}/{candidate_id}', 'App\Http\Controllers\Nhr\NhrController@viewNHRCandidateProgress')->name('nhr.view-nhr-candidate-progress');
+	Route::post('/nhr/interview-schedule', 'App\Http\Controllers\Nhr\NhrController@scheduleInterview')->name('nhr.interview.schedule');
+	Route::post('/nhr/interview-edit', 'App\Http\Controllers\Nhr\NhrController@editInterview')->name('nhr.interview.edit');
+	Route::get('/nhr/interview-delete/{interview_id}', 'App\Http\Controllers\Nhr\NhrController@deleteInterview')->name('nhr.interview.delete');
+	Route::get('/nhr/select-candidate/{nhr_id}/{candidate_id}', 'App\Http\Controllers\Nhr\NhrController@selectNHRCandidate')->name('nhr.select-candidate');
+	Route::get('/nhr/reopen/{nhr_id}', 'App\Http\Controllers\Nhr\NhrController@reopenNHR')->name('nhr.reopen');
 	//candidates
 	Route::get('/candidates', 'App\Http\Controllers\Candidate\CandidateController@index')->name('candidates.index');
 	Route::post('/candidates', 'App\Http\Controllers\Candidate\CandidateController@store')->name('candidates.store');
 	Route::get('/candidates/edit/{id}', 'App\Http\Controllers\Candidate\CandidateController@edit')->name('candidates.edit');
+	Route::get('/candidates/view/{id}', 'App\Http\Controllers\Candidate\CandidateController@view')->name('candidates.view');
 	Route::post('/candidates/update', 'App\Http\Controllers\Candidate\CandidateController@update')->name('candidates.update');
 	Route::get('/candidates/create', 'App\Http\Controllers\Candidate\CandidateController@create')->name('candidates.create');
 	Route::get('/candidates/delete/{id}', 'App\Http\Controllers\Candidate\CandidateController@delete')->name('candidates.delete');

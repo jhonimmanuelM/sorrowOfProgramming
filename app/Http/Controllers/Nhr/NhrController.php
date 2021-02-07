@@ -141,4 +141,234 @@ class NhrController extends Controller
 		]);
 		return redirect()->route('nhr.all')->with('success','Recruiter assigned NHR Successfully');
 	}
+
+	public function viewProgress($id){
+		$new_hire_request = DB::table('new_hire_requests')->where('id',$id)->first();
+    	$positions = DB::table('employee_positions')->where('id',$new_hire_request->candidate_role_id)->first();
+		$nhr_skill = explode(',', $new_hire_request->skills);
+		$skills = DB::table('referal_skill_sets')->whereIn('id',$nhr_skill)->pluck('skill')->toArray();
+    	$teams = DB::table('teams')->where('id',$new_hire_request->team_id)->first();
+    	$nhr_replacement = explode(',', $new_hire_request->replacement_for);
+    	$users = DB::table('users')->get();
+    	$recruiter = DB::table('new_hire_request_rrecruiters')->where('NHR_id',$id)->first();
+    	$nhr_candidates = DB::table('candidate_new_hire_requests')->where('candidate_new_hire_requests.NHR_id',$id)->join('candidates','candidates.id','=','candidate_new_hire_requests.candidate_id')->select('candidates.id','candidates.first_name','candidates.last_name','candidate_new_hire_requests.progress')->paginate(10);
+    	return view('new_hire_request.view-progress',compact('new_hire_request','positions','nhr_skill','skills','teams','nhr_replacement','users','recruiter','nhr_candidates'));
+	}
+
+	public function assignCandidate($id){
+		$new_hire_request = DB::table('new_hire_requests')->where('id',$id)->first();
+    	$positions = DB::table('employee_positions')->where('id',$new_hire_request->candidate_role_id)->first();
+		$nhr_skill = explode(',', $new_hire_request->skills);
+		$skills = DB::table('referal_skill_sets')->whereIn('id',$nhr_skill)->pluck('skill')->toArray();
+    	$teams = DB::table('teams')->where('id',$new_hire_request->team_id)->first();
+    	$nhr_replacement = explode(',', $new_hire_request->replacement_for);
+    	$users = DB::table('users')->get();
+    	$recruiter = DB::table('new_hire_request_rrecruiters')->where('NHR_id',$id)->first();
+    	$candidates = DB::table('candidates')->where('candidate_role',$new_hire_request->candidate_role_id);
+    	$i = 0;
+    	foreach($nhr_skill as $hr_skill){
+    		if($i == 0){
+	    		$candidates = $candidates->orWhere('skills','like','%'.$hr_skill.'%');
+    		}else{
+	    		$candidates = $candidates->orWhere('skills','like','%'.$hr_skill.'%');
+    		}
+    		$i++;
+    	}
+    	$candidates = $candidates->paginate(10);
+		$referal_skill_sets = DB::table('referal_skill_sets')->get();
+    	$candidates_skills = array();
+    	foreach($candidates as $candidate){
+    		$temp = explode(',', $candidate->skills);
+    		$temp = $referal_skill_sets->whereIn('id',$temp)->pluck('skill');
+    		$temp_skills = array();
+    		foreach($temp as $temp_skil){
+    			$temp_skills[] = $temp_skil;
+    		}
+    		$candidates_skills[$candidate->id] = implode(",", $temp_skills);
+    	}
+    	return view('new_hire_request.assign-candidate',compact('new_hire_request','positions','nhr_skill','skills','teams','nhr_replacement','users','recruiter','candidates','referal_skill_sets','candidates_skills'));
+	}
+
+	public function saveAssignCandidate($nhr_id,$candidate_id){
+		
+		DB::table('candidate_new_hire_requests')->insert([
+			'candidate_id' => $candidate_id,
+			'NHR_id' => $nhr_id,
+			'progress' => 'Interview Not Assigned Yet',
+			'created_at' => Carbon::now(),
+			'updated_at' => Carbon::now()
+		]);
+
+		return redirect()->route('nhr.view-progress',[$nhr_id])->with('success','Candidate is added successfully');
+	}
+
+	public function viewNHRCandidateProgress($nhr_id,$candidate_id){
+		$new_hire_request = DB::table('new_hire_requests')->where('id',$nhr_id)->first();
+    	$positions = DB::table('employee_positions')->where('id',$new_hire_request->candidate_role_id)->first();
+		$skills = explode(',', $new_hire_request->skills);
+		$skills = DB::table('referal_skill_sets')->whereIn('id',$skills)->pluck('skill')->toArray();
+    	$teams = DB::table('teams')->where('id',$new_hire_request->team_id)->first();
+    	$nhr_replacement = explode(',', $new_hire_request->replacement_for);
+    	$users = DB::table('users')->get();
+    	$candidate = DB::table('candidates')->where('id',$candidate_id)->first();
+    	$position_collection = DB::table('employee_positions')->get();
+    	$candidate_positions = DB::table('employee_positions')->join('candidates','candidates.candidate_role','=','employee_positions.id')->where('employee_positions.id',$candidate->candidate_role)->select('employee_positions.id','employee_positions.position')->first();
+    	$skills_collection = DB::table('referal_skill_sets')->get();
+    	$candidate_skills = explode(',', $candidate->skills);
+    	$interviews = DB::table('candidate_interviews')->where('NHR_id',$nhr_id)->where('candidate_id',$candidate_id)->get();
+    	return view('new_hire_request.candidates.progress',compact('candidate','skills_collection','candidate_positions','candidate_skills','position_collection','positions','skills','new_hire_request','teams','nhr_replacement','users','interviews'));
+	}
+
+	public function scheduleInterview(Request $request){
+		DB::table('candidate_interviews')->insert([
+			'candidate_id' => $request->candidate_id,
+			'NHR_id' => $request->NHR_id,
+			'employee_id' => $request->employee_id,
+			'interview_type' => $request->interview_type,
+			'scheduled_at' => Carbon::parse($request->scheduled_at)->toDateTimeString()
+		]);
+
+		DB::table('candidate_new_hire_requests')->where('candidate_id',$request->candidate_id)->where('NHR_id',$request->NHR_id)->update([
+			'progress' => 'Interview Schedule At'.Carbon::parse($request->scheduled_at)->toDateTimeString()
+		]);
+
+		return back()->with('success','Interview Schedulded Successfully');
+	}
+
+	public function editInterview(Request $request){
+		if($request->has('status') && $request->has('feedback')){
+			DB::table('candidate_interviews')->where('id',$request->id)->update([
+				'candidate_id' => $request->candidate_id,
+				'NHR_id' => $request->NHR_id,
+				'employee_id' => $request->employee_id,
+				'interview_type' => $request->interview_type,
+				'scheduled_at' => Carbon::parse($request->scheduled_at)->toDateTimeString(),
+				'status' => $request->status,
+				'feedback' => $request->feedback
+			]);
+			if($request->status == 1){
+				DB::table('candidate_new_hire_requests')->where('candidate_id',$request->candidate_id)->where('NHR_id',$request->NHR_id)->update([
+					'progress' => 'Forwarded to Next Round By '.Auth::user()->name
+				]);
+			}else{
+				DB::table('candidate_new_hire_requests')->where('candidate_id',$request->candidate_id)->where('NHR_id',$request->NHR_id)->update([
+					'progress' => 'Eliminated By '.Auth::user()->name,
+					'status' => 2
+				]);
+			}
+
+			return back()->with('success','Interview Updated Successfully');
+		}else{
+			DB::table('candidate_interviews')->where('id',$request->id)->update([
+				'candidate_id' => $request->candidate_id,
+				'NHR_id' => $request->NHR_id,
+				'employee_id' => $request->employee_id,
+				'interview_type' => $request->interview_type,
+				'scheduled_at' => Carbon::parse($request->scheduled_at)->toDateTimeString()
+			]);
+
+			DB::table('candidate_new_hire_requests')->where('candidate_id',$request->candidate_id)->where('NHR_id',$request->NHR_id)->update([
+				'progress' => 'Interview Schedule At'.Carbon::parse($request->scheduled_at)->toDateTimeString()
+			]);
+
+			return back()->with('success','Interview Updated Successfully');
+		}
+	}
+
+	public function deleteInterview($id){
+		DB::table('candidate_interviews')->where('id',$id)->delete();
+		return back()->with('success','Interview Deleted Successfully');
+	}
+
+	public function selectNHRCandidate($nhr_id,$candidate_id){
+		$nhr = DB::table('new_hire_requests')->where('id',$nhr_id)->first();
+		$candidate = DB::table('candidate_new_hire_requests')->where('candidate_id',$candidate_id)->where('NHR_id',$nhr_id)->update([
+			'progress' => 'Candidate Shortlisted',
+			'status' => 1
+		]);
+		$selectedCandidate = DB::table('candidate_new_hire_requests')->where('NHR_id',$nhr_id)->where('status',1)->count();
+		if($selectedCandidate == $nhr->no_of_positions){
+			DB::table('new_hire_requests')->where('id',$nhr_id)->update([
+				'status' => 3
+			]);
+			return redirect()->route('nhr.view-progress',[$nhr_id])->with('success','Candidate is Selected and NHR is closed successfully');
+		}else{
+			return redirect()->route('nhr.view-progress',[$nhr_id])->with('success','Candidate is Selected successfully');
+		}
+	}
+
+	public function reopenNHR($nhr_id){
+		DB::table('new_hire_requests')->where('id',$nhr_id)->update([
+			'status' => 2
+		]);
+		return back()->with('success','NHR is reopened successfully');
+	}
+
+	public function assignRefferal($id){
+		$new_hire_request = DB::table('new_hire_requests')->where('id',$id)->first();
+    	$positions = DB::table('employee_positions')->where('id',$new_hire_request->candidate_role_id)->first();
+		$nhr_skill = explode(',', $new_hire_request->skills);
+		$skills = DB::table('referal_skill_sets')->whereIn('id',$nhr_skill)->pluck('id')->toArray();
+    	$teams = DB::table('teams')->where('id',$new_hire_request->team_id)->first();
+    	$nhr_replacement = explode(',', $new_hire_request->replacement_for);
+    	$users = DB::table('users')->get();
+    	$skills_refferals_id = DB::table('referral_skill_mappings')->whereIn('skill_id',$skills)->pluck('referral_id')->toArray();
+    	$referrals = DB::table('referrals')->whereIn('id',$skills_refferals_id)->orderBy('updated_at','DESC')->paginate(10);
+    	$referral_skills = DB::table('referal_skill_sets')->join('referral_skill_mappings','referral_skill_mappings.skill_id','=','referal_skill_sets.id')->whereIn('referral_skill_mappings.referral_id',$referrals->pluck('id'))->select('referral_skill_mappings.referral_id','referal_skill_sets.skill')->get();
+    	return view('new_hire_request.assign-refferals',compact('new_hire_request','positions','nhr_skill','skills','teams','nhr_replacement','users','referrals','referral_skills'));
+	}
+
+	public function saveAssignRefferal(Request $request){
+		$refferal = DB::table('referrals')->where('id',$request->refferal_id)->first();
+		$referal_skills = DB::table('referral_skill_mappings')->where('referral_id',$request->refferal_id)->pluck('skill_id')->toArray();
+		$refferal_position = DB::table('referral_position_mappings')->where('referral_id',$request->refferal_id)->first();
+
+		$check_for_unique = DB::table('candidates')->where('email',$refferal->email)->first();
+    	if($check_for_unique){
+			DB::table('candidate_new_hire_requests')->insert([
+				'candidate_id' => $check_for_unique->id,
+				'NHR_id' => $request->nhr_id,
+				'progress' => 'Interview Not Assigned Yet',
+				'created_at' => Carbon::now(),
+				'updated_at' => Carbon::now()
+			]);
+
+			return redirect()->route('nhr.view-progress',[$request->nhr_id])->with('success','Candidate is added successfully');
+    	}else{
+    		$candidate_id = DB::table('candidates')->insertGetId([
+				'first_name' => $request->first_name,
+				'last_name' => $request->last_name,
+				'date_of_birth' => $refferal->date_of_birth,
+				'email' => $refferal->email,
+				'candidate_role' => $refferal_position->position_id,
+				'skills' => $referal_skills,
+				'ctc' => $request->ctc,
+				'ectc' => $request->ectc,
+				'notice_period' => $request->notice_period,
+				'year_of_experience' => $refferal->experience,
+				'current_company_name' => $request->current_company_name,
+				'previous_company_name' => $request->previous_company_name,
+				'resume' => $refferal->resume,
+	            'created_at' => Carbon::now(),
+	            'updated_at' => Carbon::now()
+	    	]);
+
+	    	DB::table('referral_candidate_mappings')->insert([
+				'candidate_id' => $candidate_id,
+				'referral_id' => $refferal->id,
+				'created_at' => Carbon::now(),
+				'updated_at' => Carbon::now()
+	    	]);
+
+			DB::table('candidate_new_hire_requests')->insert([
+				'candidate_id' => $candidate_id,
+				'NHR_id' => $request->nhr_id,
+				'progress' => 'Interview Not Assigned Yet',
+				'created_at' => Carbon::now(),
+				'updated_at' => Carbon::now()
+			]);
+
+			return redirect()->route('nhr.view-progress',[$request->nhr_id])->with('success','Candidate is added successfully');
+    	}
+	}
 }

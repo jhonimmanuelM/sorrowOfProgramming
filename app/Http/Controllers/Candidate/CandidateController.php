@@ -69,16 +69,9 @@ class CandidateController extends Controller
     public function edit($id){
     	$candidate = DB::table('candidates')->where('id',$id)->first();
     	$position_collection = DB::table('employee_positions')->get();
-    	$positions = DB::table('employee_positions')->join('candidates','candidates.candidate_role','=','employee_positions.id')->whereIn('candidates.candidate_role',$candidate->candidate_role)->select('candidates.id','employee_positions.position')->first();
+    	$positions = DB::table('employee_positions')->join('candidates','candidates.candidate_role','=','employee_positions.id')->where('employee_positions.id',$candidate->candidate_role)->select('employee_positions.id','employee_positions.position')->first();
     	$skills_collection = DB::table('referal_skill_sets')->get();
-    	$skills = array();
-		$temp = explode(',', $candidate->skills);
-		$temp = $skills_collection->whereIn('id',$temp)->pluck('skill');
-		$temp_skills = array();
-		foreach($temp as $temp_skil){
-			$temp_skills[] = $temp_skil;
-		}
-		$skills[$new_hire_request->id] = $temp_skil;
+    	$skills = explode(',', $candidate->skills);
     	return view('candidates.edit',compact('candidate','skills_collection','skills','positions','position_collection'));
     }
 
@@ -94,7 +87,7 @@ class CandidateController extends Controller
 			'date_of_birth' => $request->date_of_birth,
 			'email' => $request->email,
 			'candidate_role' => $request->candidate_role,
-			'skill_id' => implode(',',$request->skill_id),
+			'skills' => implode(',',$request->skills),
 			'ctc' => $request->ctc,
 			'ectc' => $request->ectc,
 			'notice_period' => $request->notice_period,
@@ -103,8 +96,23 @@ class CandidateController extends Controller
 			'previous_company_name' => $request->previous_company_name,
             'updated_at' => Carbon::now()
     	]);
-
+    	if($request->has('resume')){
+	        $fileName = time().'.'.$request->resume->extension();  
+	        $request->resume->move(public_path('uploads'), $fileName);
+	        DB::table('candidates')->where('id',$request->id)->update([
+	        	'resume' => $fileName
+	        ]);
+    	}
     	return redirect()->route('candidates.index')->with('success','Candidate updated successfully');
+    }
+
+    public function view($id){
+        $candidate = DB::table('candidates')->where('id',$id)->first();
+        $position_collection = DB::table('employee_positions')->get();
+        $candidate_positions = DB::table('employee_positions')->join('candidates','candidates.candidate_role','=','employee_positions.id')->where('employee_positions.id',$candidate->candidate_role)->select('employee_positions.id','employee_positions.position')->first();
+        $skills_collection = DB::table('referal_skill_sets')->get();
+        $candidate_skills = explode(',', $candidate->skills);
+        return view('candidates.view',compact('candidate','skills_collection','candidate_positions','candidate_skills','position_collection'));
     }
 
     public function delete($id){
