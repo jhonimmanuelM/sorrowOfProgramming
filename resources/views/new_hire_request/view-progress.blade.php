@@ -5,7 +5,14 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="pull-left">
-            <h4>NHR Candidate Progress</h4>
+            <h4>NHR Progress</h4>
+        </div>
+        <div class="pull-right">
+          @if(Auth::user()->hasRole('TL'))
+            <a href="{{ route('nhr.index') }}" class="btn btn-info">Back</a>
+          @else
+            <a href="{{ route('nhr.all') }}" class="btn btn-info">Back</a>
+          @endif
         </div>
     </div>
 </div>
@@ -50,24 +57,19 @@
         <div class="card card-primary">
           <div class="card-header">
             <h4>Candidates</h4>
-            @if($new_hire_request->status == 2)
+            @if(Auth::user()->hasRole('Recruiter'))
             <div class="card-header-action">
-              <div class="dropdown">
-                <a href="#" data-toggle="dropdown" class="btn btn-warning dropdown-toggle">Assign Candidate</a>
-                <div class="dropdown-menu">
-                  <a href="{{ route('nhr.assign-candidate',$new_hire_request->id) }}" class="dropdown-item has-icon"> Candidates</a>
-                  <a href="{{ route('nhr.assign-refferal',$new_hire_request->id) }}" class="dropdown-item has-icon"> Referrals</a>
+              @if($new_hire_request->status == 2 && $ongoing_interviews == 0  )
+                <div class="dropdown">
+                  <a href="#" data-toggle="dropdown" class="btn btn-warning dropdown-toggle">Assign Candidate</a>
+                  <div class="dropdown-menu">
+                    <a href="{{ route('nhr.assign-candidate',$new_hire_request->id) }}" class="dropdown-item has-icon"> Candidates</a>
+                    <a href="{{ route('nhr.assign-refferal',$new_hire_request->id) }}" class="dropdown-item has-icon"> Referrals</a>
+                  </div>
                 </div>
-              </div>
-            </div>
-            @endif
-            <div class="card-header-action">            
-              @if($new_hire_request->status == 3)
-                <a href="{{ route('nhr.reopen',$new_hire_request->id) }}" class="btn btn-warning text-white">
-                    Reopen NHR
-                </a>
               @endif
             </div>
+            @endif
           </div>
           <div class="card-body">
             <table class="table">

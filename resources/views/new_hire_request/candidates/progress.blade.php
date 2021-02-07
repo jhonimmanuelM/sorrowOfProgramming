@@ -3,9 +3,12 @@
 
 @section('content')
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-12 mb-1">
         <div class="pull-left">
             <h4>NHR Candidate</h4>
+        </div>
+        <div class="pull-right">
+            <a href="{{ route('nhr.view-progress',$new_hire_request->id) }}" class="btn btn-info">Back</a>
         </div>
     </div>
 </div>
@@ -21,16 +24,18 @@
           <div class="card-header">
             <h4>Interview</h4>
             <div class="card-header-action">
-                @if($new_hire_request->status == 2)
-                    @if(count($interviews->where('status',1)) > 0)
-                        <a href="{{ route('nhr.select-candidate',[$new_hire_request->id,$candidate->id]) }}" class="btn btn-success text-white">
-                            Select This Candidate
-                        </a>
-                    @endif
-                    @if(count($interviews->where('status',0)) == 0)
-                        <a data-toggle="collapse" data-target="#scheduleInterviewCollapse" aria-expanded="false" aria-controls="scheduleInterviewCollapse" class="btn btn-primary text-white">
-                            Schedule Interview
-                        </a>
+                @if(Auth::user()->hasRole('Recruiter'))
+                    @if($new_hire_request->status == 2)
+                        @if(count($interviews->where('status',1)) > 0 && count($interviews->where('status',2)) == 0)
+                            <a href="{{ route('nhr.select-candidate',[$new_hire_request->id,$candidate->id]) }}" class="btn btn-success text-white">
+                                Select This Candidate
+                            </a>
+                        @endif
+                        @if(count($interviews->where('status',0)) == 0 && count($interviews->where('status',2)) == 0)
+                            <a data-toggle="collapse" data-target="#scheduleInterviewCollapse" aria-expanded="false" aria-controls="scheduleInterviewCollapse" class="btn btn-primary text-white">
+                                Schedule Interview
+                            </a>
+                        @endif
                     @endif
                 @endif
             </div>

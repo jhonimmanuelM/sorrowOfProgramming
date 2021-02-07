@@ -41,8 +41,12 @@
 						@if($interview->status)
 							<a data-toggle="collapse" data-target="#viewInterviewFeedback{{$interview->id}}" aria-expanded="false" aria-controls="viewInterviewFeedback{{$interview->id}}" class="btn btn-success text-white"><i class="fas fa-eye"></i></a>
 						@else
-							<a data-toggle="collapse" data-target="#editInterview{{$interview->id}}" aria-expanded="false" aria-controls="editInterview{{$interview->id}}" class="btn btn-warning text-white"><i class="fas fa-pencil-alt"></i></a>
-							<a href="{{ route('nhr.interview.delete',$interview->id) }}" class="btn btn-danger text-white"><i class="fas fa-trash-alt"></i></a>
+							@if(Auth::user()->hasRole(['Recruiter','Interviewer']))
+								<a data-toggle="collapse" data-target="#editInterview{{$interview->id}}" aria-expanded="false" aria-controls="editInterview{{$interview->id}}" class="btn btn-warning text-white"><i class="fas fa-pencil-alt"></i></a>
+							@endif
+							@if(Auth::user()->hasRole('Recruiter'))
+								<a href="{{ route('nhr.interview.delete',$interview->id) }}" class="btn btn-danger text-white"><i class="fas fa-trash-alt"></i></a>
+							@endif
 						@endif
 					</td>
 				</tr>

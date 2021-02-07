@@ -3,11 +3,12 @@
 <input type="hidden" name="candidate_id" value="{{$interview->candidate_id}}">
 <input type="hidden" name="NHR_id" value="{{$interview->NHR_id}}">
 <div class="collapse" id="editInterview{{$interview->id}}">
+@if(Auth::user()->hasRole('Recruiter'))
   <div class="form-group">
     <label>Interviwer</label>
     <select class="form-control" name="employee_id" required>
       <option value=""></option>
-      @foreach($users as $user)
+      @foreach($interviewers as $user)
           @php
             $selected = '';
             if($user->id == $interview->employee_id){
@@ -26,6 +27,8 @@
     <label>Schedule At</label>
     <input type="datetime-local" class="form-control" name="scheduled_at" id="scheduled_at">
   </div>
+@endif
+@if(Auth::user()->hasRole('Interviewer'))
   <div class="form-group">
     <label class="form-label">Proceed to Next Round</label>
     <div class="selectgroup selectgroup-pills">
@@ -43,6 +46,7 @@
     <label>Feedback</label>
     <textarea class="form-control" id="feedback" name="feedback" required>{{$interview->feedback}}</textarea>
   </div>
+@endif
   <div class="form-group">
     <button type="submit" class="btn btn-success">Update</button>
   </div>

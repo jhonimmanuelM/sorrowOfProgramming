@@ -14,7 +14,7 @@
           <label>Interviwer</label>
           <select class="form-control" name="employee_id" required>
             <option value=""></option>
-            @foreach($users as $user)
+            @foreach($interviewers as $user)
                 <option value="{{$user->id}}">{{$user->name}}</option>
             @endforeach
           </select>

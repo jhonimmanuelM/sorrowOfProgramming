@@ -11,40 +11,46 @@
                 <a href="{{ url('/') }}" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
             </li>
 
-            @can('user-list')
+            @if(Auth::user()->hasRole(['BBA','Recruiter','TL']))
                 <li class="dropdown">
                     <a href="#" class="menu-toggle nav-link has-dropdown"><i
-                            data-feather="briefcase"></i><span>User Management</span></a>
+                            data-feather="briefcase"></i><span>Employee Management</span></a>
                     <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="{{ route('users.index') }}">Users</a></li>
-                        <li><a class="nav-link" href="{{ route('roles.index') }}">Roles</a></li>
+                        <li><a class="nav-link" href="{{ route('users.index') }}">Employees</a></li>
+                        @if(Auth::user()->hasRole('BBA'))
+                            <li><a class="nav-link" href="{{ route('roles.index') }}">Roles</a></li>
+                        @endif
                     </ul>
                 </li>
-            @endcan
+            @endif
 
-            @can('referral-list')
-                <li class="dropdown">
-                    <a href="#" class="menu-toggle nav-link has-dropdown"><i
-                            data-feather="briefcase"></i><span>Referrals</span></a>
-                    <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="{{ route('referrals.all') }}">Referrals</a></li>
-                        <li><a class="nav-link" href="{{ route('referrals.index') }}">My Referrals</a></li>
-                    </ul>
-                </li>
-            @endcan
+            <li class="dropdown">
+                <a href="#" class="menu-toggle nav-link has-dropdown"><i
+                        data-feather="briefcase"></i><span>Referrals</span></a>
+                <ul class="dropdown-menu">
+                    @if(Auth::user()->hasRole(['Recruiter','BBA']))
+                    <li><a class="nav-link" href="{{ route('referrals.all') }}">Referrals</a></li>
+                    @endif
+                    <li><a class="nav-link" href="{{ route('referrals.index') }}">My Referrals</a></li>
+                </ul>
+            </li>
 
-            @can('NHR-list')
+            @if(Auth::user()->hasRole(['BBA','Recruiter','TL','Interviewer']))
                 <li class="dropdown">
                     <a href="#" class="menu-toggle nav-link has-dropdown"><i
                             data-feather="briefcase"></i><span>NHR</span></a>
                     <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="{{ route('nhr.all') }}">NHR</a></li>
-                        <li><a class="nav-link" href="{{ route('nhr.index') }}">My NHR</a></li>
+                        @if(Auth::user()->hasRole(['BBA','Recruiter','Interviewer']))
+                            <li><a class="nav-link" href="{{ route('nhr.all') }}">NHR</a></li>
+                        @endif
+                        @if(Auth::user()->hasRole('TL'))
+                            <li><a class="nav-link" href="{{ route('nhr.index') }}">My NHR</a></li>
+                        @endif
                     </ul>
                 </li>
-            @endcan
+            @endif
 
-            @can('settings-list')
+            @if(Auth::user()->hasRole('BBA'))
                 <li class="dropdown">
                     <a href="#" class="menu-toggle nav-link has-dropdown"><i
                             data-feather="briefcase"></i><span>Setting</span></a>
@@ -52,13 +58,15 @@
                         <li><a class="nav-link" href="{{ route('teams.index') }}">Teams</a></li>
                         <li><a class="nav-link" href="{{ route('positions.index') }}">Positions</a></li>
                         <li><a class="nav-link" href="{{ route('skills.index') }}">Skill Sets</a></li>
+                        <li><a class="nav-link" href="{{ route('checklist.index') }}">Employee Checklists</a></li>
                     </ul>
                 </li>
-            @endcan
-
-            <li class="dropdown active">
-                <a href="{{ route('candidates.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Candidates</span></a>
-            </li>
+            @endif
+            @if(Auth::user()->hasRole('Recruiter'))
+                <li class="dropdown active">
+                    <a href="{{ route('candidates.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Candidates</span></a>
+                </li>
+            @endif
         </ul>
     </aside>
 </div>

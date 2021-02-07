@@ -7,20 +7,30 @@ use Illuminate\Http\Request;
 use DB;
 use Auth;
 use Carbon\Carbon;
+use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 class NhrController extends Controller
 {
     public function __construct()
     {
 		$this->middleware('auth');
-		$this->middleware('permission:NHR-list|NHR-create|NHR-edit|NHR-delete', ['only' => ['index','show','getAll']]);
-        $this->middleware('permission:NHR-create', ['only' => ['create','store']]);
-        $this->middleware('permission:NHR-edit', ['only' => ['edit','update']]);
-        $this->middleware('permission:NHR-delete', ['only' => ['delete']]);
+		// $this->middleware('permission:NHR-list|NHR-create|NHR-edit|NHR-delete', ['only' => ['index','show','getAll']]);
+        // $this->middleware('permission:NHR-create', ['only' => ['create','store']]);
+        // $this->middleware('permission:NHR-edit', ['only' => ['edit','update']]);
+        // $this->middleware('permission:NHR-delete', ['only' => ['delete']]);
     }
 
     public function getAll(){
-    	$new_hire_requests = DB::table('new_hire_requests')->orderBy('updated_at','DESC')->paginate(10);
+    	if(Auth::user()->hasRole('Interviewer')){
+    		$interviewer_nhr = DB::table('candidate_interviews')->where('employee_id',Auth::user()->id)->where('status',0)->distinct('NHR_id')->pluck('NHR_id')->toArray();
+	    	$new_hire_requests = DB::table('new_hire_requests')->where('status','!=',4)->whereIn('id',$interviewer_nhr)->orderBy('updated_at','DESC')->paginate(10);
+    	}elseif(Auth::user()->hasRole('Recruiter')){
+    		$recruiter_nhr = DB::table('new_hire_request_rrecruiters')->where('employee_id',Auth::user()->id)->distinct('NHR_id')->pluck('NHR_id')->toArray();
+	    	$new_hire_requests = DB::table('new_hire_requests')->where('status','!=',4)->whereIn('id',$recruiter_nhr)->orderBy('updated_at','DESC')->paginate(10);
+    	}else{
+    		$new_hire_requests = DB::table('new_hire_requests')->where('status','!=',4)->orderBy('updated_at','DESC')->paginate(10);
+    	}	
     	$positions = DB::table('employee_positions')->join('new_hire_requests','new_hire_requests.candidate_role_id','=','employee_positions.id')->whereIn('new_hire_requests.candidate_role_id',$new_hire_requests->pluck('candidate_role_id'))->select('new_hire_requests.id','employee_positions.position')->get();
     	$skills_collection = DB::table('referal_skill_sets')->get();
     	$skills = array();
@@ -129,7 +139,11 @@ class NhrController extends Controller
 		$skills = DB::table('referal_skill_sets')->whereIn('id',$nhr_skill)->pluck('skill')->toArray();
     	$teams = DB::table('teams')->where('id',$new_hire_request->team_id)->first();
     	$nhr_replacement = explode(',', $new_hire_request->replacement_for);
-    	$users = DB::table('users')->get();
+    	$users = User::whereHas(
+		    'roles', function($q){
+		        $q->where('name', 'Recruiter');
+		    }
+		)->get();
     	return view('new_hire_request.assign-recruiter',compact('new_hire_request','positions','nhr_skill','skills','teams','nhr_replacement','users'));
 	}
 
@@ -155,8 +169,18 @@ class NhrController extends Controller
     	$nhr_replacement = explode(',', $new_hire_request->replacement_for);
     	$users = DB::table('users')->get();
     	$recruiter = DB::table('new_hire_request_rrecruiters')->where('NHR_id',$id)->first();
-    	$nhr_candidates = DB::table('candidate_new_hire_requests')->where('candidate_new_hire_requests.NHR_id',$id)->join('candidates','candidates.id','=','candidate_new_hire_requests.candidate_id')->select('candidates.id','candidates.first_name','candidates.last_name','candidate_new_hire_requests.progress')->paginate(10);
-    	return view('new_hire_request.view-progress',compact('new_hire_request','positions','nhr_skill','skills','teams','nhr_replacement','users','recruiter','nhr_candidates'));
+    	if(Auth::user()->hasRole('Interviewer')){
+    		$interviewer_nhr = DB::table('candidate_interviews')->where('employee_id',Auth::user()->id)->where('status',0)->distinct('candidate_id')->pluck('candidate_id')->toArray();
+	    	$nhr_candidates = DB::table('candidate_new_hire_requests')->join('candidates','candidates.id','=','candidate_new_hire_requests.candidate_id')->whereIn('candidate_new_hire_requests.candidate_id',$interviewer_nhr)->select('candidates.id','candidates.first_name','candidates.last_name','candidate_new_hire_requests.progress')->paginate(10);
+	    }else{
+	    	if($new_hire_request->status == 3){
+		    	$nhr_candidates = DB::table('candidate_new_hire_requests')->where('candidate_new_hire_requests.NHR_id',$id)->where('candidate_new_hire_requests.status',1)->join('candidates','candidates.id','=','candidate_new_hire_requests.candidate_id')->select('candidates.id','candidates.first_name','candidates.last_name','candidate_new_hire_requests.progress')->paginate(10);
+	    	}else{
+		    	$nhr_candidates = DB::table('candidate_new_hire_requests')->where('candidate_new_hire_requests.NHR_id',$id)->join('candidates','candidates.id','=','candidate_new_hire_requests.candidate_id')->select('candidates.id','candidates.first_name','candidates.last_name','candidate_new_hire_requests.progress')->paginate(10);
+	    	}
+	    }
+	    $ongoing_interviews = DB::table('candidate_interviews')->where('NHR_id',$id)->where('status',0)->count();
+    	return view('new_hire_request.view-progress',compact('new_hire_request','positions','nhr_skill','skills','teams','nhr_replacement','users','recruiter','nhr_candidates','ongoing_interviews'));
 	}
 
 	public function assignCandidate($id){
@@ -220,7 +244,12 @@ class NhrController extends Controller
     	$skills_collection = DB::table('referal_skill_sets')->get();
     	$candidate_skills = explode(',', $candidate->skills);
     	$interviews = DB::table('candidate_interviews')->where('NHR_id',$nhr_id)->where('candidate_id',$candidate_id)->get();
-    	return view('new_hire_request.candidates.progress',compact('candidate','skills_collection','candidate_positions','candidate_skills','position_collection','positions','skills','new_hire_request','teams','nhr_replacement','users','interviews'));
+    	$interviewers = User::whereHas(
+		    'roles', function($q){
+		        $q->where('name', 'Interviewer');
+		    }
+		)->get();
+    	return view('new_hire_request.candidates.progress',compact('candidate','skills_collection','candidate_positions','candidate_skills','position_collection','positions','skills','new_hire_request','teams','nhr_replacement','users','interviews','interviewers'));
 	}
 
 	public function scheduleInterview(Request $request){
@@ -242,11 +271,6 @@ class NhrController extends Controller
 	public function editInterview(Request $request){
 		if($request->has('status') && $request->has('feedback')){
 			DB::table('candidate_interviews')->where('id',$request->id)->update([
-				'candidate_id' => $request->candidate_id,
-				'NHR_id' => $request->NHR_id,
-				'employee_id' => $request->employee_id,
-				'interview_type' => $request->interview_type,
-				'scheduled_at' => Carbon::parse($request->scheduled_at)->toDateTimeString(),
 				'status' => $request->status,
 				'feedback' => $request->feedback
 			]);
@@ -302,6 +326,11 @@ class NhrController extends Controller
 	}
 
 	public function reopenNHR($nhr_id){
+		$nhr = DB::table('new_hire_requests')->where('id',$nhr_id)->first();
+		$candidates = DB::table('candidate_new_hire_requests')->where('status',1)->where('NHR_id',$nhr_id)->update([
+			'progress' => 'Candidate Unable to Join',
+			'status' => 2
+		]);
 		DB::table('new_hire_requests')->where('id',$nhr_id)->update([
 			'status' => 2
 		]);
@@ -345,7 +374,7 @@ class NhrController extends Controller
 				'date_of_birth' => $refferal->date_of_birth,
 				'email' => $refferal->email,
 				'candidate_role' => $refferal_position->position_id,
-				'skills' => $referal_skills,
+				'skills' => implode(',',$referal_skills),
 				'ctc' => $request->ctc,
 				'ectc' => $request->ectc,
 				'notice_period' => $request->notice_period,
@@ -374,5 +403,31 @@ class NhrController extends Controller
 
 			return redirect()->route('nhr.view-progress',[$request->nhr_id])->with('success','Candidate is added successfully');
     	}
+	}
+
+	public function closeNHR($nhr_id){
+		$candidates = DB::table('candidate_new_hire_requests')->where('candidate_new_hire_requests.NHR_id',$nhr_id)->where('candidate_new_hire_requests.status',1)->join('candidates','candidates.id','=','candidate_new_hire_requests.candidate_id')->select('candidates.*')->get();
+		// dump($candidates);
+		foreach($candidates as $candidate){
+			$empId = User::orderBy('id','DESC')->first();
+        	$empId =$empId->employee_number + 1;
+	        $user = User::create([
+	            'name'    => $candidate->first_name.' '.$candidate->last_name,
+	            'first_name'    => $candidate->first_name,
+	            'last_name'    => $candidate->last_name,
+	            'email' => $candidate->email,
+	            'employee_number'    => $empId,
+	            'status'    => '1',
+	            'date_of_joining'    => Carbon::now(),
+	            'password'      => '$2y$10$GFyeGJrmd9VJrellIGfmCu3lmvO26indLDc8n/Xl3tbiRWqq7JJAi',
+	            'created_at'    => Date('Y-m-d H:i:s'),
+	            'updated_at'    => Date('Y-m-d H:i:s')
+	        ]);
+	        $user->assignRole([5]);
+		}
+		DB::table('')->where('id',$nhr_id)->update([
+			'new_hire_requests' => 4
+		]);
+		return redirect()->route('nhr.all')->with('success','Recruiter assigned NHR Successfully');
 	}
 }

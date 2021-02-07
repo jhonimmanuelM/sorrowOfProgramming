@@ -23,6 +23,7 @@
    <th>Employeement Type</th>
    <th>Billable</th>
    <th>No of Positions</th>
+   <th>Status</th>
    <th>Action</th>
  </tr>
     @if(count($new_hire_requests) > 0)
@@ -61,14 +62,22 @@
             </td>
             <td>{{ $new_hire_request->no_of_positions }}</td>
             <td>
+                @if($new_hire_request->status == 1)
+                    Created
+                @elseif($new_hire_request->status == 2)
+                    In-Progress 
+                @elseif($new_hire_request->status == 3)
+                    Candidates Selected
+                @else
+                    NHR Closed
+                @endif
+            </td>
+            <td>
+                <a class="btn btn-info" href="{{ route('nhr.view-progress',$new_hire_request->id) }}">View</a>
                 @if($new_hire_request->status < 3)
-                    <a class="btn btn-info" href="{{ route('nhr.view-progress',$new_hire_request->id) }}">View</a>
                     <a class="btn btn-primary" href="{{ route('nhr.edit',$new_hire_request->id) }}">Edit</a>
                     <!-- <a class="btn btn-danger" href="{{ route('nhr.delete',$new_hire_request->id) }}">Delete</a> -->
                 @else
-                    @if($new_hire_request->status == 3)
-                        <a class="btn btn-success" href="#">Validate Checklist</a>
-                    @endif
                 @endif
             </td>
         </tr>

@@ -63,6 +63,17 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::post('/referrals/update', 'App\Http\Controllers\Referal\ReferalController@update')->name('referrals.update');
 	Route::get('/referrals/delete/{id}', 'App\Http\Controllers\Referal\ReferalController@delete')->name('referrals.delete');
 
+	//Checklists
+	Route::get('/checklist/all', 'App\Http\Controllers\Checklist\ChecklistController@getAll')->name('checklist.all');
+	Route::get('/checklist', 'App\Http\Controllers\Checklist\ChecklistController@index')->name('checklist.index');
+	Route::get('/checklist/create', 'App\Http\Controllers\Checklist\ChecklistController@create')->name('checklist.create');
+	Route::post('/checklist', 'App\Http\Controllers\Checklist\ChecklistController@store')->name('checklist.store');
+	Route::get('/checklist/edit/{id}', 'App\Http\Controllers\Checklist\ChecklistController@edit')->name('checklist.edit');
+	Route::post('/checklist/update', 'App\Http\Controllers\Checklist\ChecklistController@update')->name('checklist.update');
+	Route::get('/checklist/delete/{id}', 'App\Http\Controllers\Checklist\ChecklistController@delete')->name('checklist.delete');
+	Route::get('/users/checklists/{user_id}', 'App\Http\Controllers\Checklist\ChecklistController@userChecklist')->name('users.checklists');
+	Route::post('/users/checklists', 'App\Http\Controllers\Checklist\ChecklistController@saveUserChecklist')->name('users.checklists.save');
+
 	//NHR
 	Route::get('/nhr/all', 'App\Http\Controllers\Nhr\NhrController@getAll')->name('nhr.all');
 	Route::get('/nhr', 'App\Http\Controllers\Nhr\NhrController@index')->name('nhr.index');
@@ -84,6 +95,8 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/nhr/interview-delete/{interview_id}', 'App\Http\Controllers\Nhr\NhrController@deleteInterview')->name('nhr.interview.delete');
 	Route::get('/nhr/select-candidate/{nhr_id}/{candidate_id}', 'App\Http\Controllers\Nhr\NhrController@selectNHRCandidate')->name('nhr.select-candidate');
 	Route::get('/nhr/reopen/{nhr_id}', 'App\Http\Controllers\Nhr\NhrController@reopenNHR')->name('nhr.reopen');
+	Route::get('/nhr/close/{nhr_id}', 'App\Http\Controllers\Nhr\NhrController@closeNHR')->name('nhr.final-close');
+	
 	//candidates
 	Route::get('/candidates', 'App\Http\Controllers\Candidate\CandidateController@index')->name('candidates.index');
 	Route::post('/candidates', 'App\Http\Controllers\Candidate\CandidateController@store')->name('candidates.store');
