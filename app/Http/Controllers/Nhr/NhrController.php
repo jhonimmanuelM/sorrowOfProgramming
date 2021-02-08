@@ -425,8 +425,8 @@ class NhrController extends Controller
 	        ]);
 	        $user->assignRole([5]);
 		}
-		DB::table('')->where('id',$nhr_id)->update([
-			'new_hire_requests' => 4
+		DB::table('new_hire_requests')->where('id',$nhr_id)->update([
+			'status' => 4
 		]);
 		return redirect()->route('nhr.all')->with('success','Recruiter assigned NHR Successfully');
 	}
