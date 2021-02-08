@@ -1,3 +1,9 @@
+.sidebar-brand, span.selectgroup-button.selectgroup-button-icon {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
 .card {
   border-top: 2px solid #6777ef;
 }
@@ -6,10 +12,26 @@
   justify-content: space-between;
 }
 
-span.selectgroup-button.selectgroup-button-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.roles {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+@media screen and (max-width: 767.98px) {
+  .roles {
+    display: unset;
+  }
+}
+.roles .checkbox {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.roles-badge .badge {
+  margin-bottom: 1rem;
+}
+
+a:not(.btn-social-icon):not(.btn-social):not(.page-link) .ion, a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fas, a:not(.btn-social-icon):not(.btn-social):not(.page-link) .far, a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fal, a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fab {
+  margin-left: 0 !important;
 }
 
 /*# sourceMappingURL=custom.css.map */

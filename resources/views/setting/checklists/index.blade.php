@@ -32,9 +32,9 @@
                             </tr>
                         @endif
                     </table>
+                    {!! $checklists->render() !!}
                 </div>
             </div>
         </div>
     </div>
-    {!! $checklists->render() !!}
 @endsection

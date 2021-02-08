@@ -25,20 +25,22 @@
                     <div class="row">
                         <div class="col-xl-6">
                             <div class="form-group">
-                                <strong>Name:</strong>
+                                <strong>Name</strong>
                                 {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xl-6">
-                            <div class="form-group">
-                                <strong>Permission:</strong>
-                                <br/>
+                            <label class="control-label">Permission</label>
+                            <div class="roles">
                                 @foreach($permission as $value)
-                                    <label>{{ Form::checkbox('permission[]', $value->id, false, array('class' => 'name')) }}
-                                        {{ $value->name }}</label>
-                                    <br/>
+                                    <div class="pretty p-default checkbox">
+                                        {{ Form::checkbox('permission[]', $value->id, false, array('class' => 'name')) }}
+                                        <div class="state p-primary-o">
+                                            <label> {{ $value->name }}</label>
+                                        </div>
+                                    </div>
                                 @endforeach
                             </div>
                         </div>

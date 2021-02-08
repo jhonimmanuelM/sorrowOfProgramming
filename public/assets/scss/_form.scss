@@ -1,0 +1,19 @@
+.roles {
+    display: grid;
+    grid-template-columns: auto auto;
+
+    @include respond-to(extra-small-screens) {
+        display: unset;
+    }
+
+    .checkbox {
+        display: block;
+        margin-bottom: 1rem;
+    }
+}
+
+.roles-badge{
+    .badge{
+        margin-bottom: 1rem;
+    }
+}

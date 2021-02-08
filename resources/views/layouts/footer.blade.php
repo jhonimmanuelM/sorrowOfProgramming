@@ -1,10 +1,10 @@
-<footer class="main-footer">
-  <div class="footer-left">
-    BlackBox by Sorrow of Programming
-  </div>
-  <div class="footer-right">
-  </div>
-</footer>
+{{--<footer class="main-footer">--}}
+{{--  <div class="footer-left">--}}
+{{--    BlackBox by Sorrow of Programming--}}
+{{--  </div>--}}
+{{--  <div class="footer-right">--}}
+{{--  </div>--}}
+{{--</footer>--}}
 
 <!-- General JS Scripts -->
 <script src="{{ asset('assets/js/app.min.js') }}"></script>

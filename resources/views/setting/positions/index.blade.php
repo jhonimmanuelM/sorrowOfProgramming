@@ -30,9 +30,9 @@
                             </tr>
                         @endif
                     </table>
+                    {!! $positions->render() !!}
                 </div>
             </div>
         </div>
     </div>
-    {!! $positions->render() !!}
 @endsection

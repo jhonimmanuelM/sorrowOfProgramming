@@ -31,9 +31,9 @@
                             </tr>
                         @endif
                     </table>
+                    {!! $teams->render() !!}
                 </div>
             </div>
         </div>
     </div>
-    {!! $teams->render() !!}
 @endsection
