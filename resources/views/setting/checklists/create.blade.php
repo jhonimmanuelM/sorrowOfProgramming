@@ -10,7 +10,7 @@
                     <div class="card-btn">
                         <button type="submit" class="btn btn-success">Add Checklist</button>
                         <a href="{{ route('checklist.index') }}">
-                            <button type="button" class="btn btn-warning">Cancel</button>
+                            <button type="button" class="btn btn-outline-secondary">Back</button>
                         </a>
                     </div>
                 </div>

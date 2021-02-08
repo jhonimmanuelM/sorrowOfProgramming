@@ -6,22 +6,26 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Setting - Teams</h4>
-                    <a class="btn btn-success" href="{{ route('teams.create')}}"> Create New Team</a>
+                    <a class="btn btn-primary" href="{{ route('teams.create')}}"> Create New Team</a>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
                         <tr>
-                            <th>Team</th>
-                            <th width="280px">Action</th>
+                            <th width="80%">Team</th>
+                            <th width="20%">Action</th>
                         </tr>
                         @if(count($teams) > 0)
                             @foreach ($teams as $key => $team)
                                 <tr>
                                     <td>{{ $team->team }}</td>
-                                    <td>
-                                        <a class="btn btn-primary" href="{{ route('teams.edit',$team->id) }}">Edit</a>
-                                        <a class="btn btn-danger"
-                                           href="{{ route('teams.delete',$team->id) }}">Delete</a>
+                                    <td class="table-custom-btn">
+                                        <a class="btn btn-outline-warning rounded-btn" href="{{ route('teams.edit',$team->id) }}">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                        <a class="btn btn-outline-danger rounded-btn"
+                                           href="{{ route('teams.delete',$team->id) }}">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach

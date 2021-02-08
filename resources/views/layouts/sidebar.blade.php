@@ -16,7 +16,7 @@
                 <li class="dropdown {{ Request::segment(1) === 'roles' ? 'active' : null }} {{ Request::segment(1) === 'users' ? 'active' : null }}">
                     <a href="#" class="menu-toggle nav-link has-dropdown">
                         <i class="fas fa-users"></i>
-                        <span>Employee Management</span></a>
+                        <span>User</span></a>
                     <ul class="dropdown-menu">
                         <li class="{{ Request::segment(1) === 'users' ? 'active' : null }}"><a class="nav-link"
                                                                                                href="{{ route('users.index') }}">Employees</a>

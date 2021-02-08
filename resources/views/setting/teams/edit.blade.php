@@ -10,7 +10,7 @@
                     <div class="card-btn">
                         <button type="submit" class="btn btn-success">Update Team</button>
                         <a href="{{ route('teams.index') }}">
-                            <button type="button" class="btn btn-warning">Back</button>
+                            <button type="button" class="btn btn-outline-secondary">Back</button>
                         </a>
                     </div>
                 </div>

@@ -55,4 +55,12 @@ a:not(.btn-social-icon):not(.btn-social):not(.page-link) .ion, a:not(.btn-social
   margin-right: 0.5rem;
 }
 
+.table-custom-btn {
+  display: flex;
+  align-items: center;
+}
+.table-custom-btn form {
+  margin: 0;
+}
+
 /*# sourceMappingURL=custom.css.map */

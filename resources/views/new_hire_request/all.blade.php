@@ -1,6 +1,4 @@
 @extends('layouts.app')
-
-
 @section('content')
 <div class="row">
     <div class="col-lg-12 margin-tb">
@@ -86,7 +84,7 @@
             @if($new_hire_request->status == 1)
                 Created
             @elseif($new_hire_request->status == 2)
-                In-Progress 
+                In-Progress
             @elseif($new_hire_request->status == 3)
                 Candidates Selected
             @else
@@ -135,10 +133,5 @@
 </tr>
 @endif
 </table>
-
-
 {!! $new_hire_requests->render() !!}
-
-
-
 @endsection

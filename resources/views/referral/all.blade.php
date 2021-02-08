@@ -59,7 +59,9 @@
                                 <td>{{ $refered_by[$referral->id] }}</td>
                                 <td>
                                     @if($referral->resume)
-                                        <a class="btn btn-success" href="{{url('/uploads')}}/{{$referral->resume}}">Resume</a>
+                                        <a class="btn btn-outline-danger rounded-btn" href="{{url('/uploads')}}/{{$referral->resume}}">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </a>
                                     @endif
                                 </td>
                             </tr>

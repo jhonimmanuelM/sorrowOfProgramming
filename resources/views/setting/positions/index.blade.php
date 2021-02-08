@@ -6,21 +6,25 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Setting - Position</h4>
-                    <a class="btn btn-success" href="{{ route('positions.create')}}"> Create New Position</a>
+                    <a class="btn btn-primary" href="{{ route('positions.create')}}"> Create New Position</a>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
                         <tr>
-                            <th>Position</th>
-                            <th width="280px">Action</th>
+                            <th width="80%">Position</th>
+                            <th width="20%">Action</th>
                         </tr>
                         @if(count($positions) > 0)
                             @foreach ($positions as $key => $position)
                                 <tr>
                                     <td>{{ $position->position }}</td>
-                                    <td>
-                                        <a class="btn btn-primary" href="{{ route('positions.edit',$position->id) }}">Edit</a>
-                                        <a class="btn btn-danger" href="{{ route('positions.delete',$position->id) }}">Delete</a>
+                                    <td class="table-custom-btn">
+                                        <a class="btn btn-outline-warning rounded-btn" href="{{ route('positions.edit',$position->id) }}">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                        <a class="btn btn-outline-danger rounded-btn" href="{{ route('positions.delete',$position->id) }}">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach

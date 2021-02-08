@@ -10,7 +10,7 @@
                     <div class="card-btn">
                         <button type="submit" class="btn btn-success">Update Referral</button>
                         <a href="{{ route('referrals.index') }}">
-                            <button type="button" class="btn btn-warning">Cancel</button>
+                            <button type="button" class="btn btn-outline-secondary">Back</button>
                         </a>
                     </div>
                 </div>

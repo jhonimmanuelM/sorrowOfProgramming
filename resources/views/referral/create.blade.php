@@ -10,7 +10,7 @@
                     <div class="card-btn">
                         <button type="submit" class="btn btn-success">Add Referral</button>
                         <a href="{{ route('referrals.index') }}">
-                            <button type="button" class="btn btn-warning">Cancel</button>
+                            <button type="button" class="btn btn-outline-secondary">Back</button>
                         </a>
                     </div>
                 </div>
@@ -36,16 +36,22 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label class="control-label" for="resume">Resume <sup>Accept .pdf and .docx
-                                            only</sup></label>
-                                    <input type="file" class="form-control" placeholder="Enter Resume" id="resume"
-                                           name="resume" required accept=".pdf,.docx">
+                                    <label class="control-label" for="resume">Resume</label>
+                                    <input type="file"
+                                           class="form-control"
+                                           placeholder="Enter Resume"
+                                           id="resume"
+                                           name="resume"
+                                           required
+                                           accept=".pdf,.docx">
+                                    <span class="text-muted form-text">Accept .pdf and .docx only</span>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="control-label" for="skills">Skills</label>
-                                    <select size="3" class="custom-select" id="skills" name="skills[]" required multiple>
+                                    <select size="3" class="custom-select" id="skills" name="skills[]" required
+                                            multiple>
                                         <option value="">Select Skills</option>
                                         @foreach($skills as $skill)
                                             <option value="{{$skill->id}}">{{$skill->skill}}</option>
@@ -57,7 +63,8 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="control-label" for="positions">Eligible for Positions</label>
-                                    <select size="3" class="custom-select" id="positions" name="positions[]" required multiple>
+                                    <select size="3" class="custom-select" id="positions" name="positions[]" required
+                                            multiple>
                                         <option value="">Select Positions</option>
                                         @foreach($positions as $position)
                                             <option value="{{$position->id}}">{{$position->position}}</option>

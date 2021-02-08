@@ -19,7 +19,7 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Roles</th>
-                                <th width="280px">Action</th>
+                                <th>Action</th>
                             </tr>
                             @foreach ($data as $key => $user)
                                 <tr>
@@ -33,7 +33,7 @@
                                             @endforeach
                                         @endif
                                     </td>
-                                    <td class="d-flex">
+                                    <td class="table-custom-btn">
                                         <a class="btn btn-outline-secondary rounded-btn" href="{{ route('users.show',$user->id) }}"><i class="fas fa-eye"></i></a>
                                         @if(Auth::user()->hasRole('BBA'))
                                             @if( $user->email != 'admin@blackbox.com' )
