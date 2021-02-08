@@ -25,3 +25,7 @@
 .pretty.p-default input:checked~.state label:after{
     background: #6777ef !important;
 }
+
+.input-group-text, select.form-control:not([size]):not([multiple]), .form-control:not(.form-control-sm):not(.form-control-lg){
+    padding: .375rem .75rem;
+}

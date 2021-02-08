@@ -9,16 +9,21 @@
                 </div>
                 <div class="card-body">
                     <div class="author-box-center">
+                        @if(Auth::user()->avatar)
                         <img alt="image" src="{{$user->avatar}}" class="rounded-circle author-box-picture">
+                        @else
+                            <img alt="image"  src="{{ asset('assets/img/user.png') }}"
+                                 class="rounded-circle author-box-picture">
+                        @endif
                         <div class="clearfix"></div>
                         <div class="author-box-name">
                             <a href="#">{{ $user->name }}</a>
                         </div>
-                        {{ $user->email }}
+                        <h6 class="mt-2 mb-2">{{ $user->email }}</h6>
                         <div class="author-box-job">
                             @if(!empty($user->getRoleNames()))
                                 @foreach($user->getRoleNames() as $v)
-                                    <label class="badge badge-success">{{ $v }}</label>
+                                    <label class="badge badge-primary">{{ $v }}</label>
                                 @endforeach
                             @endif
                         </div>

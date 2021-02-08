@@ -86,7 +86,8 @@
             @endif
             @if(Auth::user()->hasRole('Recruiter'))
                 <li class="dropdown {{ Request::segment(1) === 'candidates' ? 'active' : null }}">
-                    <a href="{{ route('candidates.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Candidates</span></a>
+                    <a href="{{ route('candidates.index') }}" class="nav-link">
+                        <i class="fas fa-user-check"></i><span>Candidates</span></a>
                 </li>
             @endif
         </ul>

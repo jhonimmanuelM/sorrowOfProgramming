@@ -11,32 +11,35 @@
                     @endcan
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped">
-                        <tr>
-                            <th>No</th>
-                            <th>Name</th>
-                            <th>Action</th>
-                        </tr>
-                        @foreach ($roles as $key => $role)
+                    <div class="table-responsive">
+                        <table class="table table-striped">
                             <tr>
-                                <td>{{ ++$i }}</td>
-                                <td>{{ $role->name }}</td>
-                                <td>
-                                    <a class="btn btn-outline-secondary rounded-btn" href="{{ route('roles.show',$role->id) }}">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                @can('role-edit')
-                                    <!-- <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Edit</a> -->
-                                @endcan
-                                @can('role-delete')
-                                    <!-- {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
-                                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                                    {!! Form::close() !!} -->
-                                    @endcan
-                                </td>
+                                <th width="20%">No</th>
+                                <th width="60%">Name</th>
+                                <th width="20%">Action</th>
                             </tr>
-                        @endforeach
-                    </table>
+                            @foreach ($roles as $key => $role)
+                                <tr>
+                                    <td>{{ ++$i }}</td>
+                                    <td>{{ $role->name }}</td>
+                                    <td>
+                                        <a class="btn btn-outline-secondary rounded-btn"
+                                           href="{{ route('roles.show',$role->id) }}">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                    @can('role-edit')
+                                        <!-- <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Edit</a> -->
+                                    @endcan
+                                    @can('role-delete')
+                                        <!-- {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
+                                        {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                                        {!! Form::close() !!} -->
+                                        @endcan
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
                     {!! $roles->render() !!}
                 </div>
             </div>

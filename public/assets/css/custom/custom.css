@@ -38,8 +38,16 @@
   background: #6777ef !important;
 }
 
+.input-group-text, select.form-control:not([size]):not([multiple]), .form-control:not(.form-control-sm):not(.form-control-lg) {
+  padding: 0.375rem 0.75rem;
+}
+
 a:not(.btn-social-icon):not(.btn-social):not(.page-link) .ion, a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fas, a:not(.btn-social-icon):not(.btn-social):not(.page-link) .far, a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fal, a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fab {
   margin-left: 0 !important;
+}
+
+.navbar .nav-link.nav-link-user .user-img-radious-style {
+  box-shadow: none;
 }
 
 .rounded-btn {
@@ -61,6 +69,13 @@ a:not(.btn-social-icon):not(.btn-social):not(.page-link) .ion, a:not(.btn-social
 }
 .table-custom-btn form {
   margin: 0;
+}
+
+table th {
+  white-space: nowrap;
+}
+table .interview-details {
+  margin: 1rem 0;
 }
 
 /*# sourceMappingURL=custom.css.map */
