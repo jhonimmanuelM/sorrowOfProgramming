@@ -7,7 +7,7 @@
                 <div class="card-header">
                     <h4 class="card-title">Role Management</h4>
                     @can('role-create')
-                        <a class="btn btn-success" href="{{ route('roles.create') }}"> Create New Role</a>
+                        <a class="btn btn-primary" href="{{ route('roles.create') }}"> Create New Role</a>
                     @endcan
                 </div>
                 <div class="card-body">
@@ -22,7 +22,9 @@
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $role->name }}</td>
                                 <td>
-                                    <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}">Show</a>
+                                    <a class="btn btn-outline-secondary rounded-btn" href="{{ route('roles.show',$role->id) }}">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
                                 @can('role-edit')
                                     <!-- <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Edit</a> -->
                                 @endcan

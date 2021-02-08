@@ -5,50 +5,56 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Users Management</h4>
-                    <a class="btn btn-success"
+                    <a class="btn btn-primary"
                        href="{{ route('users.create') }}">
                         Create New User
                     </a>
                 </div>
                 <div class="card-body">
                     @include('general.alerts')
-                    <table class="table table-striped">
-                        <tr>
-                            <th>No</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Roles</th>
-                            <th width="280px">Action</th>
-                        </tr>
-                        @foreach ($data as $key => $user)
+                    <div class="table-responsive">
+                        <table class="table table-striped">
                             <tr>
-                                <td>{{ ++$i }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>
-                                    @if(!empty($user->getRoleNames()))
-                                        @foreach($user->getRoleNames() as $v)
-                                            <label class="badge badge-success">{{ $v }}</label>
-                                        @endforeach
-                                    @endif
-                                </td>
-                                <td>
-                                    <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Show</a>
-                                    @if(Auth::user()->hasRole('BBA'))
-                                        @if( $user->email != 'admin@blackbox.com' )
-                                        <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Edit</a>
-                                        {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
-                                        {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                                        {!! Form::close() !!}
-                                        @endif
-                                    @endif
-                                    @if(Auth::user()->hasRole(['BBA','TL','Recruiter']))
-                                        <a class="btn btn-success" href="{{ route('users.checklists',$user->id) }}">Checklist</a>
-                                    @endif
-                                </td>
+                                <th>No</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Roles</th>
+                                <th width="280px">Action</th>
                             </tr>
-                        @endforeach
-                    </table>
+                            @foreach ($data as $key => $user)
+                                <tr>
+                                    <td>{{ ++$i }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>
+                                        @if(!empty($user->getRoleNames()))
+                                            @foreach($user->getRoleNames() as $v)
+                                                <label class="badge badge-primary">{{ $v }}</label>
+                                            @endforeach
+                                        @endif
+                                    </td>
+                                    <td class="d-flex">
+                                        <a class="btn btn-outline-secondary rounded-btn" href="{{ route('users.show',$user->id) }}"><i class="fas fa-eye"></i></a>
+                                        @if(Auth::user()->hasRole('BBA'))
+                                            @if( $user->email != 'admin@blackbox.com' )
+                                                <a class="btn btn-outline-warning rounded-btn" href="{{ route('users.edit',$user->id) }}">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                </a>
+                                                {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id]]) !!}
+                                                {!! Form::submit('x', ['class' => 'btn btn-outline-danger rounded-btn']) !!}
+                                                {!! Form::close() !!}
+                                            @endif
+                                        @endif
+                                        @if(Auth::user()->hasRole(['BBA','TL','Recruiter']))
+                                            <a class="btn btn-outline-success rounded-btn" href="{{ route('users.checklists',$user->id) }}">
+                                                <i class="fas fa-check"></i>
+                                            </a>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

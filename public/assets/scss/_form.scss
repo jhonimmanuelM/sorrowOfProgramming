@@ -17,3 +17,11 @@
         margin-bottom: 1rem;
     }
 }
+
+.control-label{
+    text-transform: capitalize;
+}
+
+.pretty.p-default input:checked~.state label:after{
+    background: #6777ef !important;
+}

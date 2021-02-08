@@ -1,4 +1,4 @@
-.sidebar-brand, span.selectgroup-button.selectgroup-button-icon {
+.rounded-btn, .sidebar-brand, span.selectgroup-button.selectgroup-button-icon {
   display: flex !important;
   align-items: center;
   justify-content: center;
@@ -30,8 +30,29 @@
   margin-bottom: 1rem;
 }
 
+.control-label {
+  text-transform: capitalize;
+}
+
+.pretty.p-default input:checked ~ .state label:after {
+  background: #6777ef !important;
+}
+
 a:not(.btn-social-icon):not(.btn-social):not(.page-link) .ion, a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fas, a:not(.btn-social-icon):not(.btn-social):not(.page-link) .far, a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fal, a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fab {
   margin-left: 0 !important;
+}
+
+.rounded-btn {
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  margin-right: 1rem;
+  line-height: 1;
+  font-weight: bold;
+}
+
+.card-btn .btn-success {
+  margin-right: 0.5rem;
 }
 
 /*# sourceMappingURL=custom.css.map */

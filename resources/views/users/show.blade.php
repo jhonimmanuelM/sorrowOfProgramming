@@ -5,7 +5,7 @@
             <div class="card author-box">
                 <div class="card-header">
                     <h4 class="card-title"> Show User</h4>
-                    <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
+                    <a class="btn btn-outline-secondary" href="{{ route('users.index') }}">Back</a>
                 </div>
                 <div class="card-body">
                     <div class="author-box-center">

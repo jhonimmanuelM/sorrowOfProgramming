@@ -17,8 +17,8 @@
                 <div class="card-header">
                     <h4 class="card-title">Create New Role</h4>
                     <div class="card-btn">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <a class="btn btn-primary" href="{{ route('roles.index') }}"> Back</a>
+                        <button type="submit" class="btn btn-success">Save</button>
+                        <a class="btn btn-outline-secondary" href="{{ route('roles.index') }}">Back</a>
                     </div>
                 </div>
                 <div class="card-body">
