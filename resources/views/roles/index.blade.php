@@ -23,8 +23,7 @@
                                     <td>{{ ++$i }}</td>
                                     <td>{{ $role->name }}</td>
                                     <td>
-                                        <a class="btn btn-outline-secondary rounded-btn"
-                                           href="{{ route('roles.show',$role->id) }}">
+                                        <a class="btn btn-outline-secondary rounded-btn" data-toogle="tooltip" title="View" href="{{ route('roles.show',$role->id) }}">
                                             <i class="fas fa-eye"></i>
                                         </a>
                                     @can('role-edit')

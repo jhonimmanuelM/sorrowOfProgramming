@@ -22,7 +22,7 @@
                             <label class="control-label">Recruiter</label>
                             <select class="custom-select" name="recruiter" required>
                                 <option value=""></option>
-                                @foreach($users as $user)
+                                @foreach($recruiter as $user)
                                     <option value="{{$user->id}}">{{$user->name}}</option>
                                 @endforeach
                             </select>

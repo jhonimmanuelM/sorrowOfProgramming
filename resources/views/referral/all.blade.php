@@ -59,7 +59,7 @@
                                 <td>{{ $refered_by[$referral->id] }}</td>
                                 <td>
                                     @if($referral->resume)
-                                        <a class="btn btn-outline-danger rounded-btn" href="{{url('/uploads')}}/{{$referral->resume}}">
+                                        <a class="btn btn-outline-danger rounded-btn" data-toogle="tooltip" title="Resume" href="{{url('/uploads')}}/{{$referral->resume}}">
                                             <i class="fas fa-file-pdf"></i>
                                         </a>
                                     @endif
