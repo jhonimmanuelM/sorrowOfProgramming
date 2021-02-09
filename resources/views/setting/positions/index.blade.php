@@ -19,10 +19,10 @@
                                 <tr>
                                     <td>{{ $position->position }}</td>
                                     <td class="table-custom-btn">
-                                        <a class="btn btn-outline-warning rounded-btn" href="{{ route('positions.edit',$position->id) }}">
+                                        <a class="btn btn-outline-warning rounded-btn" data-toogle="tooltip" title="Edit" href="{{ route('positions.edit',$position->id) }}">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
-                                        <a class="btn btn-outline-danger rounded-btn" href="{{ route('positions.delete',$position->id) }}">
+                                        <a class="btn btn-outline-danger rounded-btn" data-toogle="tooltip" title="Delete" href="{{ route('positions.delete',$position->id) }}">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>
                                     </td>

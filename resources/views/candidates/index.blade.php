@@ -48,19 +48,22 @@
                             <!-- <td>{{ $candidate->current_company_name }}</td>
                             <td>{{ $candidate->previous_company_name }}</td> -->
                                 <td class="table-custom-btn">
-                                    <a class="btn btn-outline-secondary rounded-btn" href="{{ route('candidates.view',$candidate->id) }}">
+                                    <a class="btn btn-outline-secondary rounded-btn" data-toogle="tooltip" title=
+                                    "View" href="{{ route('candidates.view',$candidate->id) }}">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a class="btn btn-outline-warning rounded-btn" href="{{ route('candidates.edit',$candidate->id) }}">
+                                    <a class="btn btn-outline-warning rounded-btn" data-toogle="tooltip" title=
+                                    "edit" href="{{ route('candidates.edit',$candidate->id) }}">
                                         <i class="fas fa-pencil-alt"></i>
                                     </a>
                                     @if($candidate->resume)
-                                        <a class="btn btn-outline-danger rounded-btn" href="{{url('/uploads')}}/{{$candidate->resume}}">
+                                        <a class="btn btn-outline-danger rounded-btn" data-toogle="tooltip" title=
+                                    "Resume" href="{{url('/uploads')}}/{{$candidate->resume}}">
                                             <i class="fas fa-file-pdf"></i>
                                         </a>
                                     @endif
-                                    <a class="btn btn-outline-danger rounded-btn"
-                                       href="{{ route('candidates.delete',$candidate->id) }}">
+                                    <a class="btn btn-outline-danger rounded-btn" data-toogle="tooltip" title=
+                                    "Delete" href="{{ route('candidates.delete',$candidate->id) }}">
                                         <i class="fas fa-trash-alt"></i>
                                     </a>
                                 </td>

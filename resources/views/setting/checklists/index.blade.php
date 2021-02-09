@@ -21,10 +21,10 @@
                                     <td>{{ $checklist->checklist }}</td>
                                     <td>{{ $checklist->name }}</td>
                                     <td class="table-custom-btn">
-                                        <a class="btn btn-outline-warning rounded-btn" href="{{ route('checklist.edit',$checklist->id) }}">
+                                        <a class="btn btn-outline-warning rounded-btn" data-toogle="tooltip" title="Edit" href="{{ route('checklist.edit',$checklist->id) }}">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
-                                        <a class="btn btn-outline-danger rounded-btn" href="{{ route('checklist.delete',$checklist->id) }}">
+                                        <a class="btn btn-outline-danger rounded-btn" data-toogle="tooltip" title="Delete" href="{{ route('checklist.delete',$checklist->id) }}">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>
                                     </td>
