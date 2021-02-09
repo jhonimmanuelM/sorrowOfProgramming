@@ -36,24 +36,24 @@ class GoogleController extends Controller
             if($finduser){
 
                 Auth::login($finduser);
-
+                $user  = User::where('id',$user->id)->update(['avatar' => $user->avatar_original]);
                 return redirect()->intended('/');
 
             }else{
-                $empId = User::orderBy('id','DESC')->first();
-                $empId =$empId->employee_number + 1;
-                $newUser = User::create([
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'google_id'=> $user->id,
-                    'employee_number' => $empId,
-                    'password' => encrypt('admin@123'),
-                    'avatar' => $user->avatar_original
-                ]);
-                DB::table('model_has_roles')->insert(['role_id'=>2,'model_type' => 'App\Models\User','model_id'=> $newUser->id]);
-                Auth::login($newUser);
-
-                return redirect()->intended('/');
+                return redirect('/login')->with('success','User Not created.');
+                // $empId = User::orderBy('id','DESC')->first();
+                // $empId =$empId->employee_number + 1;
+                // $newUser = User::create([
+                //     'name' => $user->name,
+                //     'email' => $user->email,
+                //     'google_id'=> $user->id,
+                //     'employee_number' => $empId,
+                //     'password' => encrypt('admin@123'),
+                //     'avatar' => $user->avatar_original
+                // ]);
+                // DB::table('model_has_roles')->insert(['role_id'=>2,'model_type' => 'App\Models\User','model_id'=> $newUser->id]);
+                // Auth::login($newUser);
+                // return redirect()->intended('/');
             }
 
         } catch (Exception $e) {

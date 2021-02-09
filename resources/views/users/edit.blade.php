@@ -65,30 +65,30 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <strong>status</strong>
-                                    <input type="radio" id="active" name='status' value="1" required>
+                                    <input type="radio" id="active" name='status' {{ $user->status == 1 ? 'checked' : '' }} value="1" required>
                                     <label for="active">Active</label>
-                                    <input type="radio" id="in_active" name="status" value="0" required>
+                                    <input type="radio" id="in_active" name="status" {{ $user->status == 0 ? 'checked' : '' }} value="0" required>
                                     <label for="in_active">In Active</label>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <strong>DOB:</strong>
-                                    <input type="date" class="form-control" id="DOB" name="DOB" required>
+                                    <input type="date" class="form-control" id="DOB" name="DOB" value="{{Carbon\Carbon::parse($user->DOB)->toDateString()}}"required>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <strong>Date of Joining:</strong>
-                                    <input type="date" class="form-control" id="date_of_joining" name="date_of_joining" required>
+                                    <input type="date" class="form-control" id="date_of_joining" name="date_of_joining" value="{{Carbon\Carbon::parse($user->date_of_joining)->toDateString()}}"required>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <strong>Probation Period</strong>
-                                    <input type="radio" id="yes" name="employee_type" value="1" required>
+                                    <input type="radio" id="yes" {{ $user->status == 1 ? 'checked' : '' }} name="employee_type" value="1" required>
                                     <label for="yes">Yes</label>
-                                    <input type="radio" id="No" name="employee_type" value="0" required>
+                                    <input type="radio" id="No" {{ $user->status == 0 ? 'checked' : '' }} name="employee_type" value="0" required>
                                     <label for="No">No</label>
                                 </div>
                             </div>

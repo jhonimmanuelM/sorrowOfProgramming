@@ -25,11 +25,11 @@ Auth::routes();
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
 Route::get('/callback', [GoogleController::class, 'handleGoogleCallback']);
 
-
 Route::group(['middleware' => ['auth']], function() {
-
+	Route::get('/home', 'App\Http\Controllers\DashboardController@index');
 	Route::get('/', 'App\Http\Controllers\DashboardController@index')->name('home');
-
+	Route::get('/users/profile', [UserController::class,'getProfile'])->name('profile');
+	Route::post('/users/updateProfile', [UserController::class,'updateProfile'])->name('users.updateProfile');
 	//Seting.Skills
 	Route::get('/skills', 'App\Http\Controllers\Setting\SkillController@index')->name('skills.index');
 	Route::post('/skills', 'App\Http\Controllers\Setting\SkillController@store')->name('skills.store');

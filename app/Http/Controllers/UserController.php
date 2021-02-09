@@ -9,6 +9,7 @@ use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
     
 class UserController extends Controller
 {
@@ -143,5 +144,40 @@ class UserController extends Controller
         User::find($id)->delete();
         return redirect()->route('users.index')
                         ->with('success','User deleted successfully');
+    }
+
+    public function getProfile()
+    {
+        $user = User::find(AUTH::user()->id);
+        return view('users.profile',compact('user'));
+    }
+    public function updateProfile(Request $request)
+    {
+        $id = AUTH::user()->id;
+        $this->validate($request, [
+            'email' => 'required|email|unique:users,email,'.$id,
+            'gender_id' =>'required',
+            'DOB' => 'required',
+            'mobile_number' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required'
+        ]);
+
+        if($request->hasFile('avatar_file')){
+            $file = $request->file('avatar_file');
+            $filename = $file->getClientOriginalName();
+            $file->move('storage/photos', $filename); 
+            // $fullpath = $filename . '.' . $extension ; // adding full
+            $avatar = "http://localhost:8000/"."storage/photos/".$filename;
+            $input = $request->all() + ['name' => $request->first_name.' '.$request->last_name,'avatar' => $avatar];
+            $user = User::find($id);
+            $user->update($input);
+        }else{
+            $input = $request->all() + ['name' => $request->first_name.' '.$request->last_name];
+            $user = User::find($id);
+            $user->update($input);
+        }
+        return redirect()->back()
+                        ->with('success','Profile Updated Successfully');
     }
 }

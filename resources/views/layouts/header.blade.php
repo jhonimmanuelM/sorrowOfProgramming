@@ -145,7 +145,7 @@
       </span></a>
     <div class="dropdown-menu dropdown-menu-right pullDown">
       <div class="dropdown-title">{{ Auth::user()->name }}</div>
-      <a href="#" class="dropdown-item has-icon"> <i class="far fa-user"></i> Profile
+      <a href="{{ route('profile') }}" class="dropdown-item has-icon"> <i class="far fa-user"></i> Profile
       <div class="dropdown-divider"></div>
       <a class="dropdown-item has-icon text-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> <i class="fas fa-sign-out-alt"></i>
         Logout
