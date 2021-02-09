@@ -6,3 +6,8 @@ a:not(.btn-social-icon):not(.btn-social):not(.page-link) .ion, a:not(.btn-social
     margin-left: 0 !important;
 }
 
+.light-sidebar .main-sidebar .sidebar-menu li ul.dropdown-menu li.active>a,
+.light-sidebar .main-sidebar .sidebar-menu li ul.dropdown-menu li.active>a::before{
+    color: #6777ef !important;
+}
+
