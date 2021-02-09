@@ -1,0 +1,31 @@
+.roles {
+    display: grid;
+    grid-template-columns: auto auto;
+
+    @include respond-to(extra-small-screens) {
+        display: unset;
+    }
+
+    .checkbox {
+        display: block;
+        margin-bottom: 1rem;
+    }
+}
+
+.roles-badge{
+    .badge{
+        margin-bottom: 1rem;
+    }
+}
+
+.control-label{
+    text-transform: capitalize;
+}
+
+.pretty.p-default input:checked~.state label:after{
+    background: #6777ef !important;
+}
+
+.input-group-text, select.form-control:not([size]):not([multiple]), .form-control:not(.form-control-sm):not(.form-control-lg){
+    padding: .375rem .75rem;
+}

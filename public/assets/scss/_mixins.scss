@@ -1,0 +1,28 @@
+@mixin respond-to($media) {
+    // Extra small devices (portrait phones, less than 576px)
+    @if $media == extra-small-screens {
+        @media screen and(max-width: $small-device) {
+            @content;
+        }
+        // Small devices (landscape phones, 576px and up)
+    }  @else if $media == medium-screens {
+        @media screen and(min-width: $small-device + 0.02) and (max-width: $medium-device) {
+            @content;
+        }
+        // Large devices (desktops, 992px and up)
+    } @else if $media == large-screens {
+        @media screen and(min-width: $medium-device + 0.02) and (max-width: $large-device) {
+            @content;
+        }
+        // Extra large devices (large desktops, 1200px and up)
+    } @else if $media == extra-large-screens {
+        @media screen and(min-width: $large-device + 0.02) and (max-width: $desktop-device) {
+            @content;
+        }
+        // Larger devices (larger desktops, 1600px and up)
+    } @else if $media == desktop-screens {
+        @media screen and(min-width: $desktop-device + 0.02) {
+            @content;
+        }
+    }
+}

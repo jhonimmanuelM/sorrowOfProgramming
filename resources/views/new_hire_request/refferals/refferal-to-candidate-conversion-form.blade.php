@@ -1,7 +1,7 @@
 {!! Form::open(array('route' => 'nhr.save.assign.refferal','method'=>'POST', 'enctype' => 'multipart/form-data')) !!}
 <input type="hidden" name="nhr_id" value="{{$new_hire_request->id}}">
 <input type="hidden" name="refferal_id" value="{{$referral->id}}">
-<div class="row">
+<div class="row pt-4 bg-secondary">
 	<div class="col-md-6">
 	  <div class="form-group">
 	    <label>Candidate First Name</label>

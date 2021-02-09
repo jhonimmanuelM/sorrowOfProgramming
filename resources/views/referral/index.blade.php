@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">My Referrals</h4>
-                    <a class="btn btn-success" href="{{ route('referrals.create')}}">New Referrals</a>
+                    <a class="btn btn-primary" href="{{ route('referrals.create')}}">New Referrals</a>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
@@ -56,10 +56,14 @@
                                     <td>{{ $referral->experience }} Months</td>
                                     <td>{{ $referral->email }}</td>
                                     <td>{{ $referral->contact_number }}</td>
-                                    <td>
-                                        <a class="btn btn-primary" href="{{ route('referrals.edit',$referral->id) }}">Edit</a>
+                                    <td class="table-custom-btn">
+                                        <a class="btn btn-outline-warning rounded-btn" data-toogle="tooltip" title="Edit" href="{{ route('referrals.edit',$referral->id) }}">
+                                            <i class="fas fa-pen"></i>
+                                        </a>
                                         @if($referral->resume)
-                                            <a class="btn btn-success" href="{{url('/uploads')}}/{{$referral->resume}}">Resume</a>
+                                            <a class="btn btn-outline-danger rounded-btn" data-toogle="tooltip" title="Resume" href="{{url('/uploads')}}/{{$referral->resume}}">
+                                                <i class="fas fa-file-pdf"></i>
+                                            </a>
                                     @endif
                                     <!-- <a class="btn btn-danger" href="{{ route('referrals.delete',$referral->id) }}">Delete</a> -->
                                     </td>

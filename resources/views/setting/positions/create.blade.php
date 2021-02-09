@@ -10,7 +10,7 @@
                     <div class="card-btn">
                         <button type="submit" class="btn btn-success">Add Position</button>
                         <a href="{{ route('positions.index') }}">
-                            <button type="button" class="btn btn-warning">Cancel</button>
+                            <button type="button" class="btn btn-outline-secondary">Back</button>
                         </a>
                     </div>
                 </div>
@@ -18,8 +18,11 @@
                     <div class="row">
                         <div class="col-xl-6">
                             <div class="form-group">
-                                <label for="email">Position:</label>
-                                <input type="text" class="form-control" placeholder="Enter a Skill" id="position"
+                                <label class="control-label" for="email">Position</label>
+                                <input type="text"
+                                       class="form-control"
+                                       placeholder="Enter a Skill"
+                                       id="position"
                                        name="position" required>
                             </div>
                         </div>

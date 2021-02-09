@@ -6,22 +6,25 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Setting - Skills</h4>
-                    <a class="btn btn-success" href="{{ route('skills.create')}}"> Create New Skill</a>
+                    <a class="btn btn-primary" href="{{ route('skills.create')}}"> Create New Skill</a>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
                         <tr>
-                            <th>Skill</th>
-                            <th width="280px">Action</th>
+                            <th width="80%">Skill</th>
+                            <th width="20%">Action</th>
                         </tr>
                         @if(count($skills) > 0)
                             @foreach ($skills as $key => $skill)
                                 <tr>
                                     <td>{{ $skill->skill }}</td>
-                                    <td>
-                                        <a class="btn btn-primary" href="{{ route('skills.edit',$skill->id) }}">Edit</a>
-                                        <a class="btn btn-danger"
-                                           href="{{ route('skills.delete',$skill->id) }}">Delete</a>
+                                    <td class="table-custom-btn">
+                                        <a class="btn btn-outline-warning rounded-btn" data-toogle="tooltip" title="Edit" href="{{ route('skills.edit',$skill->id) }}">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                        <a class="btn btn-outline-danger rounded-btn" data-toogle="tooltip" title="Delete" href="{{ route('skills.delete',$skill->id) }}">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach

@@ -10,7 +10,7 @@
                     <div class="card-btn">
                         <button type="submit" class="btn btn-success">Add Candidate</button>
                         <a href="{{ route('candidates.index') }}">
-                            <button type="button" class="btn btn-warning">Back</button>
+                            <button type="button" class="btn btn-outline-secondary">Back</button>
                         </a>
                     </div>
                 </div>
@@ -18,13 +18,13 @@
                     <div class="row">
                         <div class="col-xl-6">
                             <div class="form-group">
-                                <label for="first_name">First Name:</label>
+                                <label class="control-label" for="first_name">First Name</label>
                                 <input type="text" class="form-control" id="first_name" name="first_name" required>
                             </div>
                         </div>
                         <div class="col-xl-6">
                             <div class="form-group">
-                                <label for="last_name">Last Name:</label>
+                                <label class="control-label" for="last_name">Last Name</label>
                                 <input type="text" class="form-control" id="last_name" name="last_name" required>
                             </div>
                         </div>
@@ -32,14 +32,14 @@
                     <div class="row">
                         <div class="col-xl-6">
                             <div class="form-group">
-                                <label for="date_of_birth">DOB:</label>
+                                <label class="control-label" for="date_of_birth">DOB</label>
                                 <input type="date" class="form-control" id="date_of_birth" name="date_of_birth"
                                        required>
                             </div>
                         </div>
                         <div class="col-xl-6">
                             <div class="form-group">
-                                <label for="email">Email:</label>
+                                <label class="control-label" for="email">Email</label>
                                 <input type="text" class="form-control" id="email" name="email" required>
                             </div>
                         </div>
@@ -47,7 +47,7 @@
                     <div class="row">
                         <div class="col-xl-6">
                             <div class="form-group">
-                                <label for="candidate_role">Position:</label>
+                                <label class="control-label" for="candidate_role">Position</label>
                                 <select class="form-control" id="candidate_role" name="candidate_role" required>
                                     <option value="">Select Positions</option>
                                     @foreach($positions as $position)
@@ -58,7 +58,7 @@
                         </div>
                         <div class="col-xl-6">
                             <div class="form-group">
-                                <label for="skills">Skills:</label>
+                                <label class="control-label" for="skills">Skills</label>
                                 <div class="selectgroup selectgroup-pills">
                                     @foreach($skills as $skill)
                                         <label class="selectgroup-item">
@@ -74,13 +74,13 @@
                     <div class="row">
                         <div class="col-xl-6">
                             <div class="form-group">
-                                <label for="ctc">CTC:</label>
+                                <label class="control-label" for="ctc">CTC</label>
                                 <input type="number" class="form-control" id="ctc" name="ctc" required step="any">
                             </div>
                         </div>
                         <div class="col-xl-6">
                             <div class="form-group">
-                                <label for="ectc">ECTC:</label>
+                                <label class="control-label" for="ectc">ECTC</label>
                                 <input type="number" class="form-control" id="ectc" name="ectc" required step="any">
                             </div>
                         </div>
@@ -88,14 +88,14 @@
                     <div class="row">
                         <div class="col-xl-6">
                             <div class="form-group">
-                                <label for="notice_period">Notice Periods (In Days)</label>
+                                <label class="control-label" for="notice_period">Notice Periods (In Days)</label>
                                 <input type="number" class="form-control" id="notice_period" name="notice_period"
                                        required>
                             </div>
                         </div>
                         <div class="col-xl-6">
                             <div class="form-group">
-                                <label for="year_of_experience">Experience (In Months):</label>
+                                <label for="year_of_experience">Experience (In Months)</label>
                                 <input type="number" class="form-control" id="year_of_experience"
                                        name="year_of_experience"
                                        required>
@@ -105,7 +105,7 @@
                     <div class="row">
                         <div class="col-xl-6">
                             <div class="form-group">
-                                <label for="current_company_name">Current Company (Enter NA if not applicable)</label>
+                                <label class="control-label" for="current_company_name">Current Company (Enter NA if not applicable)</label>
                                 <input type="Text" class="form-control" id="current_company_name"
                                        name="current_company_name"
                                        required>
@@ -113,7 +113,7 @@
                         </div>
                         <div class="col-xl-6">
                             <div class="form-group">
-                                <label for="previous_company_name">Previous Company (Enter NA if not applicable)</label>
+                                <label class="control-label" for="previous_company_name">Previous Company (Enter NA if not applicable)</label>
                                 <input type="Text" class="form-control" id="previous_company_name"
                                        name="previous_company_name"
                                        required>
@@ -123,7 +123,7 @@
                     <div class="row">
                         <div class="col-xl-6">
                             <div class="form-group">
-                                <label for="resume">Resume</label>
+                                <label class="control-label" for="resume">Resume</label>
                                 <input type="file" class="form-control" id="resume" name="resume" required>
                             </div>
                         </div>

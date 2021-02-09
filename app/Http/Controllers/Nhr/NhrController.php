@@ -139,12 +139,13 @@ class NhrController extends Controller
 		$skills = DB::table('referal_skill_sets')->whereIn('id',$nhr_skill)->pluck('skill')->toArray();
     	$teams = DB::table('teams')->where('id',$new_hire_request->team_id)->first();
     	$nhr_replacement = explode(',', $new_hire_request->replacement_for);
-    	$users = User::whereHas(
+    	$recruiter = User::whereHas(
 		    'roles', function($q){
 		        $q->where('name', 'Recruiter');
 		    }
 		)->get();
-    	return view('new_hire_request.assign-recruiter',compact('new_hire_request','positions','nhr_skill','skills','teams','nhr_replacement','users'));
+		$users = DB::table('users')->get();
+    	return view('new_hire_request.assign-recruiter',compact('new_hire_request','positions','nhr_skill','skills','teams','nhr_replacement','users','recruiter'));
 	}
 
 	public function saveAssignRecruiter(Request $request){
@@ -171,7 +172,7 @@ class NhrController extends Controller
     	$recruiter = DB::table('new_hire_request_rrecruiters')->where('NHR_id',$id)->first();
     	if(Auth::user()->hasRole('Interviewer')){
     		$interviewer_nhr = DB::table('candidate_interviews')->where('employee_id',Auth::user()->id)->where('status',0)->distinct('candidate_id')->pluck('candidate_id')->toArray();
-	    	$nhr_candidates = DB::table('candidate_new_hire_requests')->join('candidates','candidates.id','=','candidate_new_hire_requests.candidate_id')->whereIn('candidate_new_hire_requests.candidate_id',$interviewer_nhr)->select('candidates.id','candidates.first_name','candidates.last_name','candidate_new_hire_requests.progress')->paginate(10);
+	    	$nhr_candidates = DB::table('candidate_new_hire_requests')->join('candidates','candidates.id','=','candidate_new_hire_requests.candidate_id')->whereIn('candidate_new_hire_requests.candidate_id',$interviewer_nhr)->where('candidate_new_hire_requests.NHR_id',$id)->select('candidates.id','candidates.first_name','candidates.last_name','candidate_new_hire_requests.progress')->paginate(10);
 	    }else{
 	    	if($new_hire_request->status == 3){
 		    	$nhr_candidates = DB::table('candidate_new_hire_requests')->where('candidate_new_hire_requests.NHR_id',$id)->where('candidate_new_hire_requests.status',1)->join('candidates','candidates.id','=','candidate_new_hire_requests.candidate_id')->select('candidates.id','candidates.first_name','candidates.last_name','candidate_new_hire_requests.progress')->paginate(10);
@@ -192,7 +193,8 @@ class NhrController extends Controller
     	$nhr_replacement = explode(',', $new_hire_request->replacement_for);
     	$users = DB::table('users')->get();
     	$recruiter = DB::table('new_hire_request_rrecruiters')->where('NHR_id',$id)->first();
-    	$candidates = DB::table('candidates')->where('candidate_role',$new_hire_request->candidate_role_id);
+    	$previous_nhr_candidates = DB::table('candidate_new_hire_requests')->where('NHR_id',$id)->distinct('candidate_id')->pluck('candidate_id')->toArray();
+    	$candidates = DB::table('candidates')->whereNotIn('id',$previous_nhr_candidates)->where('candidate_role',$new_hire_request->candidate_role_id);
     	$i = 0;
     	foreach($nhr_skill as $hr_skill){
     		if($i == 0){
@@ -346,7 +348,8 @@ class NhrController extends Controller
     	$nhr_replacement = explode(',', $new_hire_request->replacement_for);
     	$users = DB::table('users')->get();
     	$skills_refferals_id = DB::table('referral_skill_mappings')->whereIn('skill_id',$skills)->pluck('referral_id')->toArray();
-    	$referrals = DB::table('referrals')->whereIn('id',$skills_refferals_id)->orderBy('updated_at','DESC')->paginate(10);
+    	$previous_nhr_candidates = DB::table('candidate_new_hire_requests')->where('candidate_new_hire_requests.NHR_id',$new_hire_request->id)->join('referral_candidate_mappings','referral_candidate_mappings.candidate_id','=','candidate_new_hire_requests.candidate_id')->distinct('referral_candidate_mappings.referral_id')->pluck('referral_candidate_mappings.referral_id')->toArray();
+    	$referrals = DB::table('referrals')->whereIn('id',array_diff($skills_refferals_id,$previous_nhr_candidates))->orderBy('updated_at','DESC')->paginate(10);
     	$referral_skills = DB::table('referal_skill_sets')->join('referral_skill_mappings','referral_skill_mappings.skill_id','=','referal_skill_sets.id')->whereIn('referral_skill_mappings.referral_id',$referrals->pluck('id'))->select('referral_skill_mappings.referral_id','referal_skill_sets.skill')->get();
     	return view('new_hire_request.assign-refferals',compact('new_hire_request','positions','nhr_skill','skills','teams','nhr_replacement','users','referrals','referral_skills'));
 	}
@@ -425,8 +428,8 @@ class NhrController extends Controller
 	        ]);
 	        $user->assignRole([5]);
 		}
-		DB::table('')->where('id',$nhr_id)->update([
-			'new_hire_requests' => 4
+		DB::table('new_hire_requests')->where('id',$nhr_id)->update([
+			'status' => 4
 		]);
 		return redirect()->route('nhr.all')->with('success','Recruiter assigned NHR Successfully');
 	}

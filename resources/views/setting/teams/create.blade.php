@@ -10,7 +10,7 @@
                     <div class="card-btn">
                         <button type="submit" class="btn btn-success">Add Team</button>
                         <a href="{{ route('teams.index') }}">
-                            <button type="button" class="btn btn-warning">Cancel</button>
+                            <button type="button" class="btn btn-outline-secondary">Back</button>
                         </a>
                     </div>
                 </div>
@@ -18,7 +18,7 @@
                     <div class="row">
                         <div class="col-xl-6">
                             <div class="form-group">
-                                <label for="email">Team:</label>
+                                <label class="control-label" for="email">Team</label>
                                 <input type="text" class="form-control" placeholder="Enter a Team" id="team" name="team"
                                        required>
                             </div>

@@ -10,7 +10,7 @@
                     <div class="card-btn">
                         <button type="submit" class="btn btn-success">Add Checklist</button>
                         <a href="{{ route('checklist.index') }}">
-                            <button type="button" class="btn btn-warning">Cancel</button>
+                            <button type="button" class="btn btn-outline-secondary">Back</button>
                         </a>
                     </div>
                 </div>
@@ -18,18 +18,22 @@
                     <div class="row">
                         <div class="col-xl-6">
                             <div class="form-group">
-                                <label for="email">Checklist:</label>
-                                <input type="text" class="form-control" placeholder="Enter a Checklist" id="checklist"
+                                <label class="control-label" for="email">Checklist</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="checklist"
                                        name="checklist" required>
                             </div>
                             <div class="form-group">
-                                <label for="email">Checklist Role:</label>
-                                <select class="form-control" id="role_id"
-                                       name="role_id" required>
+                                <label class="control-label" for="email">Checklist Role</label>
+                                <select class="form-control"
+                                        id="role_id"
+                                        name="role_id"
+                                        required>
                                     <option value=""></option>
                                     @foreach($roles as $role)
                                         <option value="{{$role->id}}">{{$role->name}}</option>
-                                    @endforeach         
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

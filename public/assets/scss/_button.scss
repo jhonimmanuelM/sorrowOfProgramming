@@ -1,0 +1,24 @@
+.rounded-btn{
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    margin-right: 1rem;
+    line-height: 1;
+    font-weight: bold;
+    @extend %center-content;
+}
+
+.card-btn{
+    .btn-success{
+        margin-right: 0.5rem;
+    }
+}
+
+.table-custom-btn{
+    display: flex;
+    align-items: center;
+
+    form{
+        margin: 0;
+    }
+}
