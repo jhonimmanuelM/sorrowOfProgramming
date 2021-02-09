@@ -30,13 +30,13 @@ class GoogleController extends Controller
         try {
 
             $user = Socialite::driver('google')->user();
-
-            $finduser = User::where('google_id', $user->id)->first();
+            $finduser = User::where('email', $user->email)->first();
 
             if($finduser){
 
                 Auth::login($finduser);
-                $user  = User::where('id',$user->id)->update(['avatar' => $user->avatar_original]);
+                $id = AUTH::user()->id;
+                $user  = User::where('id',$id)->update(['avatar' => $user->avatar_original,'google_id' => $user->id]);
                 return redirect()->intended('/');
 
             }else{
