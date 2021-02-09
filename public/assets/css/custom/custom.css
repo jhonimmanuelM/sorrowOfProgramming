@@ -33,6 +33,16 @@
   box-shadow: 0 4px 25px 0 #828282;
 }
 
+.user-profile__details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.user-profile__details h6 {
+  color: #656565;
+  font-weight: normal;
+}
+
 .roles {
   display: grid;
   grid-template-columns: auto auto;
@@ -55,7 +65,8 @@
   text-transform: capitalize;
 }
 
-.pretty.p-default input:checked ~ .state label:after {
+.pretty.p-default input:checked ~ .state label:after,
+.pretty.p-default:not(.p-fill) input:checked ~ .state.p-primary-o label:after {
   background: #6777ef !important;
 }
 
@@ -65,6 +76,11 @@
 
 a:not(.btn-social-icon):not(.btn-social):not(.page-link) .ion, a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fas, a:not(.btn-social-icon):not(.btn-social):not(.page-link) .far, a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fal, a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fab {
   margin-left: 0 !important;
+}
+
+.light-sidebar .main-sidebar .sidebar-menu li ul.dropdown-menu li.active > a,
+.light-sidebar .main-sidebar .sidebar-menu li ul.dropdown-menu li.active > a::before {
+  color: #6777ef !important;
 }
 
 .author-box .author-box-picture {
