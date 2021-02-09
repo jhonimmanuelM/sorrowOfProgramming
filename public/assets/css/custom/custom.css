@@ -78,4 +78,59 @@ table .interview-details {
   margin: 1rem 0;
 }
 
+.login {
+  background: white;
+}
+.login .login-bg {
+  background: url("../../img/login/login-bg.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.login .google-button {
+  border-width: 0;
+  background: white;
+  color: #737373;
+  border-radius: 5px;
+  white-space: nowrap;
+  box-shadow: 1px 1px 10px #b5b5b5;
+}
+.login .google-button:hover {
+  background-color: transparent !important;
+  color: #737373 !important;
+}
+.login .google-button__icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 8px 0 8px 8px;
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+}
+.login .google-button__text {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0 24px;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: "Roboto", arial, sans-serif;
+}
+.login .hr-line {
+  text-align: center;
+  margin: 2rem 0;
+  border-bottom: 1px solid #d8d8d8;
+  line-height: 0.1rem;
+}
+.login .hr-line__text {
+  background: white;
+  padding: 0 1rem;
+  font-weight: normal;
+  font-size: 15px;
+}
+@media screen and (max-width: 767.98px) {
+  .login .btn-login {
+    width: 100%;
+  }
+}
+
 /*# sourceMappingURL=custom.css.map */

@@ -1,0 +1,64 @@
+.login {
+    background: white;
+
+
+    .login-bg{
+        background: url("../../img/login/login-bg.png");
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .google-button {
+        border-width: 0;
+        background: white;
+        color: #737373;
+        border-radius: 5px;
+        white-space: nowrap;
+        box-shadow: 1px 1px 10px #b5b5b5;
+
+        &:hover{
+            background-color: transparent !important;
+            color: #737373 !important;
+        }
+    }
+
+    .google-button__icon {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 8px 0 8px 8px;
+        width: 18px;
+        height: 18px;
+        box-sizing: border-box;
+    }
+
+    .google-button__text {
+        display: inline-block;
+        vertical-align: middle;
+        padding: 0 24px;
+        font-size: 14px;
+        font-weight: bold;
+        font-family: 'Roboto',arial,sans-serif;
+    }
+
+    .hr-line{
+        text-align: center;
+        margin: 2rem 0;
+        border-bottom: 1px solid #d8d8d8;
+        line-height: 0.1rem;
+
+        &__text{
+            background: white;
+            padding: 0 1rem;
+            font-weight: normal;
+            font-size: 15px;
+        }
+    }
+
+    .btn-login{
+        @include respond-to(extra-small-screens){
+            width: 100%;
+        }
+    }
+}
+
