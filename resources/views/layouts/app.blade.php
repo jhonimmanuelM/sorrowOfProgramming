@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <title>DCKAP - Blackbox</title>
-    <link rel='shortcut icon' type='image/x-icon' href="{{ asset('assets/img/favicon.ico') }}"/>
+    <link rel='shortcut icon' type='image/x-icon' href="{{ asset('assets/img/logo/app-icon.png') }}"/>
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('assets/css/app.min.css') }}">
     <!-- Template CSS -->

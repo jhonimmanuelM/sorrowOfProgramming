@@ -1,3 +1,22 @@
-.navbar .nav-link.nav-link-user .user-img-radious-style{
-    box-shadow: none;
+.author-box .author-box-picture{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.navbar .nav-link.nav-link-user img{
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+
+.author-box .author-box-name{
+    line-height: 1px;
+    border-bottom: 1px solid #e4e4e4;
+
+    .author-box-name-text{
+        background: white;
+        padding: 0 2rem;
+        font-size: 20px;
+    }
 }

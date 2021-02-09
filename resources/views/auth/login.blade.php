@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DCKAP - Blackbox</title>
-    <link rel='shortcut icon' type='image/x-icon' href="{{ asset('assets/img/favicon.ico') }}"/>
+    <link rel='shortcut icon' type='image/x-icon' href="{{ asset('assets/img/logo/app-icon.png') }}"/>
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('assets/css/app.min.css') }}">
     <!-- Template CSS -->
@@ -15,11 +15,20 @@
 <body class="login">
 <div class="container-fluid">
     <div class="row h-100">
-        <div class="col-xl-6 col-md-6">
+        <div class="col-xl-6 col-md-6 login-bg">
+
+        </div>
+        <div class="col-xl-6 col-md-6 position-relative">
+            <div class="login-logo">
+                <img src="{{ asset('assets/img/logo/logo.png') }}" class="img-fluid"/>
+            </div>
             <div class="row h-100 justify-content-center align-items-center">
                 <div class="col-lg-8">
+                    <h4 class="sign-in-text">
+                        Sign In to your account
+                        <small></small>
+                    </h4>
                     <form method="POST" action="{{ route('login') }}">
-
                         @csrf
                         <div class="form-group">
                             <label for="email"
@@ -68,7 +77,7 @@
                         {{--                        </div>--}}
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-lg btn-login">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">
                                 {{ __('Login') }}
                             </button>
 
@@ -106,7 +115,6 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-6 col-md-6 login-bg"></div>
     </div>
 </div>
 </body>
