@@ -87,6 +87,7 @@ a:not(.btn-social-icon):not(.btn-social):not(.page-link) .ion, a:not(.btn-social
   width: 200px;
   height: 200px;
   object-fit: cover;
+  background: white;
 }
 
 .navbar .nav-link.nav-link-user img {
@@ -134,13 +135,36 @@ table .interview-details {
 }
 
 .login {
-  background: white;
+  background-image: linear-gradient(90deg, rgba(57, 78, 234, 0.1) 0%, rgba(9, 9, 121, 0.1) 82%, rgba(0, 0, 0, 0.1) 100%), url("../../img/logo/body-bg.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.login .card {
+  border: none;
+  border-radius: 25px;
+  margin: 0;
+}
+.login .card .card-body {
+  padding: 0;
+}
+@media screen and (max-width: 767.98px) {
+  .login .card .card-body {
+    padding: 1.5rem;
+  }
 }
 .login .login-bg {
-  background: url("../../img/login/login-bg.png");
+  background: linear-gradient(90deg, rgba(57, 78, 234, 0.3) 0%, rgba(9, 9, 121, 0.3) 82%, rgba(0, 0, 0, 0.3) 100%), url("../../img/logo/login-bg.jpg");
+  background-size: cover;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  border-radius: 25px;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+.login .login-form {
+  margin: 2rem 0;
 }
 .login .google-button {
   border-width: 0;
@@ -189,12 +213,11 @@ table .interview-details {
 }
 .login .login-logo {
   width: 100%;
-  height: 0;
   text-align: center;
 }
 .login .login-logo img {
-  height: 100px;
-  margin: 2rem 0;
+  height: 50px;
+  margin-bottom: 2rem;
 }
 .login .sign-in-text {
   color: black;

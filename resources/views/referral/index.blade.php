@@ -57,11 +57,11 @@
                                     <td>{{ $referral->email }}</td>
                                     <td>{{ $referral->contact_number }}</td>
                                     <td class="table-custom-btn">
-                                        <a class="btn btn-outline-warning rounded-btn" data-toogle="tooltip" title="Edit" href="{{ route('referrals.edit',$referral->id) }}">
+                                        <a class="btn btn-outline-warning rounded-btn" data-toggle="tooltip" data-placement="bottom" data-original-title="Edit" href="{{ route('referrals.edit',$referral->id) }}">
                                             <i class="fas fa-pen"></i>
                                         </a>
                                         @if($referral->resume)
-                                            <a class="btn btn-outline-danger rounded-btn" data-toogle="tooltip" title="Resume" href="{{url('/uploads')}}/{{$referral->resume}}">
+                                            <a class="btn btn-outline-danger rounded-btn" data-toggle="tooltip" data-placement="bottom" data-original-title="Resume" href="{{url('/uploads')}}/{{$referral->resume}}">
                                                 <i class="fas fa-file-pdf"></i>
                                             </a>
                                     @endif

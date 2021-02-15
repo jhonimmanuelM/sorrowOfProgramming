@@ -36,6 +36,7 @@
                     </div>
 
                     <div class="form-group">
+                        <label class="control-label">Upload Profile Picture</label>
                         <input type="file"
                                class="form-control"
                                name="avatar_file"

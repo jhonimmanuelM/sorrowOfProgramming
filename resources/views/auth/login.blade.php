@@ -13,86 +13,89 @@
     <link rel="stylesheet" href="{{ asset('assets/css/custom/custom.css') }}">
 </head>
 <body class="login">
-<div class="container-fluid">
-    <div class="row h-100">
-        <div class="col-xl-6 col-md-6 login-bg">
+<div class="container">
+    <div class="row h-100 align-items-center">
+        <div class="col-xl-12">
 
-        </div>
-        <div class="col-xl-6 col-md-6 position-relative">
-            <div class="login-logo">
-                <img src="{{ asset('assets/img/logo/logo.png') }}" class="img-fluid"/>
-            </div>
-            <div class="row h-100 justify-content-center align-items-center">
-                <div class="col-lg-8">
-                    <h4 class="sign-in-text">
-                        Sign In to your account
-                        <small></small>
-                    </h4>
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-                        <div class="form-group">
-                            <label for="email"
-                                   class="control-label">{{ __('E-Mail Address') }}</label>
-                            <input id="email"
-                                   type="email"
-                                   class="form-control @error('email') is-invalid @enderror"
-                                   name="email"
-                                   value="{{ old('email') }}"
-                                   required
-                                   autocomplete="email"
-                                   autofocus>
-                            @error('email')
-                            <span class="invalid-feedback"
-                                  role="alert">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xl-6 col-md-6 login-bg"></div>
+                        <div class="col-xl-6 col-md-6 login-form">
+                            <div class="login-logo">
+                                <img src="{{ asset('assets/img/logo/logo.png') }}" class="img-fluid"/>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <h5 class="sign-in-text ">
+                                        Sign In <span class="text-primary">to your account</span>
+                                    </h5>
+                                    <form method="POST" action="{{ route('login') }}">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="email"
+                                                   class="control-label">{{ __('E-Mail Address') }}</label>
+                                            <input id="email"
+                                                   type="email"
+                                                   class="form-control @error('email') is-invalid @enderror"
+                                                   name="email"
+                                                   value="{{ old('email') }}"
+                                                   required
+                                                   autocomplete="email"
+                                                   autofocus>
+                                            @error('email')
+                                            <span class="invalid-feedback"
+                                                  role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="password" class="control-label">{{ __('Password') }}</label>
-                            <input id="password"
-                                   type="password"
-                                   class="form-control @error('password') is-invalid @enderror"
-                                   name="password"
-                                   required
-                                   autocomplete="current-password">
-                            @error('password')
-                            <span class="invalid-feedback"
-                                  role="alert">
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password" class="control-label">{{ __('Password') }}</label>
+                                            <input id="password"
+                                                   type="password"
+                                                   class="form-control @error('password') is-invalid @enderror"
+                                                   name="password"
+                                                   required
+                                                   autocomplete="current-password">
+                                            @error('password')
+                                            <span class="invalid-feedback"
+                                                  role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
-                            @enderror
-                        </div>
-                        {{--                        <div class="form-group row">--}}
-                        {{--                            <div class="col-md-6 offset-md-4">--}}
-                        {{--                                <div class="form-check">--}}
-                        {{--                                    <input class="form-check-input" type="checkbox" name="remember"--}}
-                        {{--                                           id="remember" {{ old('remember') ? 'checked' : '' }}>--}}
+                                            @enderror
+                                        </div>
+                                        {{--                        <div class="form-group row">--}}
+                                        {{--                            <div class="col-md-6 offset-md-4">--}}
+                                        {{--                                <div class="form-check">--}}
+                                        {{--                                    <input class="form-check-input" type="checkbox" name="remember"--}}
+                                        {{--                                           id="remember" {{ old('remember') ? 'checked' : '' }}>--}}
 
-                        {{--                                    <label class="form-check-label" for="remember">--}}
-                        {{--                                        {{ __('Remember Me') }}--}}
-                        {{--                                    </label>--}}
-                        {{--                                </div>--}}
-                        {{--                            </div>--}}
-                        {{--                        </div>--}}
+                                        {{--                                    <label class="form-check-label" for="remember">--}}
+                                        {{--                                        {{ __('Remember Me') }}--}}
+                                        {{--                                    </label>--}}
+                                        {{--                                </div>--}}
+                                        {{--                            </div>--}}
+                                        {{--                        </div>--}}
 
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-lg btn-block">
-                                {{ __('Login') }}
-                            </button>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                                {{ __('Login') }}
+                                            </button>
 
-                            {{--                                @if (Route::has('password.request'))--}}
-                            {{--                                    <a class="btn btn-link" href="{{ route('password.request') }}">--}}
-                            {{--                                        {{ __('Forgot Your Password?') }}--}}
-                            {{--                                    </a>--}}
-                            {{--                                @endif--}}
-                        </div>
+                                            {{--                                @if (Route::has('password.request'))--}}
+                                            {{--                                    <a class="btn btn-link" href="{{ route('password.request') }}">--}}
+                                            {{--                                        {{ __('Forgot Your Password?') }}--}}
+                                            {{--                                    </a>--}}
+                                            {{--                                @endif--}}
+                                        </div>
 
-                        <h5 class="hr-line">
-                            <span class="hr-line__text">or</span>
-                        </h5>
+                                        <h5 class="hr-line">
+                                            <span class="hr-line__text">or</span>
+                                        </h5>
 
-                        <a class="google-button btn btn-secondary btn-block" href="{{ url('auth/google') }}">
+                                        <a class="google-button btn btn-secondary btn-block"
+                                           href="{{ url('auth/google') }}">
                              <span class="google-button__icon">
                                 <svg viewBox="0 0 366 372" xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -109,9 +112,13 @@
                                         fill="#34A853"/>
                                 </svg>
                                 </span>
-                            <span class="google-button__text">Sign in with Google</span>
-                        </a>
-                    </form>
+                                            <span class="google-button__text">Sign in with Google</span>
+                                        </a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

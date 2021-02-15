@@ -1,12 +1,36 @@
 .login {
-    background: white;
+    background-image: linear-gradient(90deg, rgba(57,78,234,0.1) 0%, rgba(9,9,121,0.1) 82%, rgba(0,0,0,0.1) 100%), url("../../img/logo/body-bg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    .card {
+        border: none;
+        border-radius: 25px;
+        margin: 0;
+
+        .card-body {
+            padding: 0;
+            @include respond-to(extra-small-screens) {
+                padding: 1.5rem;
+            }
+        }
+    }
 
 
-    .login-bg{
-        background: url("../../img/login/login-bg.png");
+    .login-bg {
+        background: linear-gradient(90deg, rgba(57,78,234,0.3) 0%, rgba(9,9,121,0.3) 82%, rgba(0,0,0,0.3) 100%),url("../../img/logo/login-bg.jpg");
+        background-size: cover;
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
+        border-radius: 25px;
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    .login-form {
+        margin: 2rem 0;
     }
 
     .google-button {
@@ -17,7 +41,7 @@
         white-space: nowrap;
         box-shadow: 1px 1px 10px #b5b5b5;
 
-        &:hover{
+        &:hover {
             background-color: transparent !important;
             color: #737373 !important;
         }
@@ -38,16 +62,16 @@
         padding: 0 24px;
         font-size: 14px;
         font-weight: bold;
-        font-family: 'Roboto',arial,sans-serif;
+        font-family: 'Roboto', arial, sans-serif;
     }
 
-    .hr-line{
+    .hr-line {
         text-align: center;
         margin: 2rem 0;
         border-bottom: 1px solid #d8d8d8;
         line-height: 0.1rem;
 
-        &__text{
+        &__text {
             background: white;
             padding: 0 1rem;
             font-weight: normal;
@@ -55,24 +79,23 @@
         }
     }
 
-    .btn-login{
-        @include respond-to(extra-small-screens){
+    .btn-login {
+        @include respond-to(extra-small-screens) {
             width: 100%;
         }
     }
 
-    .login-logo{
+    .login-logo {
         width: 100%;
-        height: 0;
         text-align: center;
 
-        img{
-            height: 100px;
-            margin: 2rem 0;
+        img {
+            height: 50px;
+            margin-bottom: 2rem;
         }
     }
 
-    .sign-in-text{
+    .sign-in-text {
         color: black;
         margin-bottom: 2rem;
     }

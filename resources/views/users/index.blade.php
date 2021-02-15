@@ -34,10 +34,10 @@
                                         @endif
                                     </td>
                                     <td class="table-custom-btn">
-                                        <a class="btn btn-outline-secondary rounded-btn" data-toogle="tooltip" title="View" href="{{ route('users.show',$user->id) }}"><i class="fas fa-eye"></i></a>
+                                        <a class="btn btn-outline-secondary rounded-btn" data-toggle="tooltip" data-placement="bottom" data-original-title="View"   href="{{ route('users.show',$user->id) }}"><i class="fas fa-eye"></i></a>
                                         @if(Auth::user()->hasRole('BBA'))
                                             @if( $user->email != 'admin@blackbox.com' )
-                                                <a class="btn btn-outline-warning rounded-btn" data-toogle="tooltip" title="Edit" href="{{ route('users.edit',$user->id) }}">
+                                                <a class="btn btn-outline-warning rounded-btn" data-toggle="tooltip" data-placement="bottom" data-original-title="Edit"  href="{{ route('users.edit',$user->id) }}">
                                                     <i class="fas fa-pencil-alt"></i>
                                                 </a>
                                                 {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id]]) !!}
@@ -46,7 +46,7 @@
                                             @endif
                                         @endif
                                         @if(Auth::user()->hasRole(['BBA','TL','Recruiter']))
-                                            <a class="btn btn-outline-success rounded-btn" data-toogle="tooltip" title="Checklist" href="{{ route('users.checklists',$user->id) }}">
+                                            <a class="btn btn-outline-success rounded-btn" data-toggle="tooltip" data-placement="bottom" data-original-title="Checklist" href="{{ route('users.checklists',$user->id) }}">
                                                 <i class="fas fa-check"></i>
                                             </a>
                                         @endif

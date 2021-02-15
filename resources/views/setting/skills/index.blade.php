@@ -19,10 +19,10 @@
                                 <tr>
                                     <td>{{ $skill->skill }}</td>
                                     <td class="table-custom-btn">
-                                        <a class="btn btn-outline-warning rounded-btn" data-toogle="tooltip" title="Edit" href="{{ route('skills.edit',$skill->id) }}">
+                                        <a class="btn btn-outline-warning rounded-btn" data-toggle="tooltip" data-placement="bottom" data-original-title="Edit" href="{{ route('skills.edit',$skill->id) }}">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
-                                        <a class="btn btn-outline-danger rounded-btn" data-toogle="tooltip" title="Delete" href="{{ route('skills.delete',$skill->id) }}">
+                                        <a class="btn btn-outline-danger rounded-btn" data-toggle="tooltip" data-placement="bottom" data-original-title="Delete" href="{{ route('skills.delete',$skill->id) }}">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>
                                     </td>

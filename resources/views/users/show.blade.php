@@ -108,7 +108,7 @@
                                 {{ $user->email }}
                             </h6>
 
-                            <div class="author-box-job mt-3">
+                            <div class="author-box-job mt-3 text-left">
                                 @if(!empty($user->getRoleNames()))
                                     @foreach($user->getRoleNames() as $v)
                                         <h6><i class="fas fa-briefcase"></i> {{ $v }}</h6>
