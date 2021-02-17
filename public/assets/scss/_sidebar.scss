@@ -1,4 +1,4 @@
-.sidebar-brand{
+.sidebar-brand {
     @extend %center-content;
 }
 
@@ -6,11 +6,37 @@ a:not(.btn-social-icon):not(.btn-social):not(.page-link) .ion, a:not(.btn-social
     margin-left: 0 !important;
 }
 
-.light-sidebar .main-sidebar .sidebar-menu li ul.dropdown-menu li.active>a,
-.light-sidebar .main-sidebar .sidebar-menu li ul.dropdown-menu li.active>a::before{
+.light-sidebar .main-sidebar .sidebar-menu li ul.dropdown-menu li.active > a,
+.light-sidebar .main-sidebar .sidebar-menu li ul.dropdown-menu li.active > a::before {
     color: #6777ef !important;
 }
 
-.main-sidebar .sidebar-brand a .header-logo{
+.main-sidebar .sidebar-brand a .header-logo {
     margin-top: -5px;
+}
+
+
+.loader {
+    background-size: 0;
+
+    &:before {
+        content: '';
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: url(../../img/logo/app-icon.png) 50% 50% no-repeat #f9f9f9;
+        background-size: 100px;
+        opacity: 1;
+        animation: 0.9s bounce infinite alternate;
+    }
+}
+
+@keyframes bounce {
+    to {
+        opacity: 0.3;
+        transform: translate3d(0, -3rem, 0);
+    }
 }
