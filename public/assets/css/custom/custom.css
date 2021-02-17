@@ -22,6 +22,11 @@
   border-radius: 10px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
+  background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
+  background: url("../../img/logo/glossy.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 .author-box .card-banner img {
   height: 150px;
@@ -33,7 +38,7 @@
   border-bottom-right-radius: 0;
 }
 .author-box .author-box-picture {
-  margin-top: -3rem;
+  margin-top: -2rem;
   border: 3px solid #fff;
 }
 
@@ -89,6 +94,10 @@ a:not(.btn-social-icon):not(.btn-social):not(.page-link) .ion, a:not(.btn-social
 .light-sidebar .main-sidebar .sidebar-menu li ul.dropdown-menu li.active > a,
 .light-sidebar .main-sidebar .sidebar-menu li ul.dropdown-menu li.active > a::before {
   color: #6777ef !important;
+}
+
+.main-sidebar .sidebar-brand a .header-logo {
+  margin-top: -5px;
 }
 
 .author-box .author-box-picture {

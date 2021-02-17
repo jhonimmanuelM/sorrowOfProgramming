@@ -55,9 +55,9 @@
                             @endforeach
                         </table>
                     </div>
+                    {!! $data->render() !!}
                 </div>
             </div>
         </div>
     </div>
-    {!! $data->render() !!}
 @endsection

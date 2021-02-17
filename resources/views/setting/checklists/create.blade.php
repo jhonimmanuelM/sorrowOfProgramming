@@ -26,7 +26,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="email">Checklist Role</label>
-                                <select class="form-control"
+                                <select class="custom-select"
                                         id="role_id"
                                         name="role_id"
                                         required>
