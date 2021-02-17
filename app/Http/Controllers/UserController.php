@@ -1,7 +1,7 @@
 <?php
-    
+
 namespace App\Http\Controllers;
-    
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -10,7 +10,7 @@ use DB;
 use Hash;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
-    
+
 class UserController extends Controller
 {
     function __construct()
@@ -32,7 +32,7 @@ class UserController extends Controller
         return view('users.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 10);
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -43,7 +43,7 @@ class UserController extends Controller
         $roles = Role::pluck('name','name')->all();
         return view('users.create',compact('roles'));
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -67,14 +67,14 @@ class UserController extends Controller
         $empId =$empId->employee_number + 1;
         $input = $request->all() + ['name' => $request->first_name.' '.$request->last_name,'employee_number' => $empId];
         $input['password'] = Hash::make($input['password']);
-    
+
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
-    
+
         return redirect()->route('users.index')
                         ->with('success','User created successfully');
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -86,7 +86,7 @@ class UserController extends Controller
         $user = User::find($id);
         return view('users.show',compact('user'));
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -98,10 +98,10 @@ class UserController extends Controller
         $user = User::find($id);
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
-    
+
         return view('users.edit',compact('user','roles','userRole'));
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -120,19 +120,19 @@ class UserController extends Controller
             'first_name' => 'required',
             'last_name' => 'required'
         ]);
-    
+
         $input = $request->all() + ['name' => $request->first_name.' '.$request->last_name];
-    
+
         $user = User::find($id);
         $user->update($input);
         DB::table('model_has_roles')->where('model_id',$id)->delete();
-    
+
         $user->assignRole($request->input('roles'));
-    
+
         return redirect()->route('users.index')
                         ->with('success','User updated successfully');
     }
-    
+
     /**
      * Remove the specified resource from storage.
      *
@@ -166,7 +166,7 @@ class UserController extends Controller
         if($request->hasFile('avatar_file')){
             $file = $request->file('avatar_file');
             $filename = $file->getClientOriginalName();
-            $file->move('storage/photos', $filename); 
+            $file->move('storage/photos', $filename);
             // $fullpath = $filename . '.' . $extension ; // adding full
             $avatar = "http://localhost:8000/"."storage/photos/".$filename;
             $input = $request->all() + ['name' => $request->first_name.' '.$request->last_name,'avatar' => $avatar];
@@ -179,5 +179,14 @@ class UserController extends Controller
         }
         return redirect()->back()
                         ->with('success','Profile Updated Successfully');
+    }
+    public function sendemail(){
+        return view('mail.feedback');
+//        $data = array('name'=>"jhon");
+//        Mail::send('mail', $data, function($message) use($resp,$subject) {
+//            $message->to($resp, 'Test Mail')->subject
+//            ($subject);
+//            $message->from('sorrowOfProgramming@gmail.com','SOP Team');
+//        });
     }
 }

@@ -122,7 +122,7 @@
         <div class="col-xl-6">
             <div class="card author-box">
                 <div class="card-banner">
-                    <img class="img-fluid" src="{{asset('assets/img/banner/bg-1.jpg')}}">
+                    <div class="profile-bg" id="bg-color-generate"></div>
                 </div>
                 <div class="card-body">
                     <div class="author-box-center">
@@ -139,3 +139,25 @@
         </div>
     </div>
 @endsection
+
+<script>
+    setTimeout(function () {
+        const colorThief = new ColorThief();
+        const img = document.querySelector('img');
+        var color;
+// Make sure image is finished loading
+        if (img.complete) {
+            color = colorThief.getColor(img);
+
+        } else {
+            image.addEventListener('load', function () {
+                color = colorThief.getColor(img);
+            });
+        }
+        var finalColor = "rgb(" + color.join() + ")";
+        console.log(finalColor);
+        $('#bg-color-generate').css('background-color',finalColor)
+    }, 500);
+</script>
+
+

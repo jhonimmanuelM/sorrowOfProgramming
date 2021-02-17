@@ -86,7 +86,7 @@
         <div class="col-xl-6">
             <div class="card author-box">
                 <div class="card-banner">
-                    <img class="img-fluid" src="http://127.0.0.1:8000/assets/img/banner/bg-1.jpg">
+                    <img class="img-fluid" src="{{asset('assets/img/banner/bg-1.jpg')}}">
                 </div>
                 <div class="card-body">
                     <div class="author-box-center">

@@ -12,6 +12,15 @@
     .card-banner {
         height: 40px;
 
+        .profile-bg{
+            height: 160px;
+            background-position: center;
+            background-blend-mode: screen;
+            border-radius: 10px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
         img {
             height: 150px;
             width: 100%;

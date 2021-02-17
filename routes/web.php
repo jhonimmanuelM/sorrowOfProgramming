@@ -45,7 +45,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::post('/positions/update', 'App\Http\Controllers\Setting\PositionController@update')->name('positions.update');
 	Route::get('/positions/create', 'App\Http\Controllers\Setting\PositionController@create')->name('positions.create');
 	Route::get('/positions/delete/{id}', 'App\Http\Controllers\Setting\PositionController@delete')->name('positions.delete');
-	
+
 	//Setting.Positions
 	Route::get('/teams', 'App\Http\Controllers\Setting\TeamController@index')->name('teams.index');
 	Route::post('/teams', 'App\Http\Controllers\Setting\TeamController@store')->name('teams.store');
@@ -96,7 +96,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/nhr/select-candidate/{nhr_id}/{candidate_id}', 'App\Http\Controllers\Nhr\NhrController@selectNHRCandidate')->name('nhr.select-candidate');
 	Route::get('/nhr/reopen/{nhr_id}', 'App\Http\Controllers\Nhr\NhrController@reopenNHR')->name('nhr.reopen');
 	Route::get('/nhr/close/{nhr_id}', 'App\Http\Controllers\Nhr\NhrController@closeNHR')->name('nhr.final-close');
-	
+
 	//candidates
 	Route::get('/candidates', 'App\Http\Controllers\Candidate\CandidateController@index')->name('candidates.index');
 	Route::post('/candidates', 'App\Http\Controllers\Candidate\CandidateController@store')->name('candidates.store');
@@ -114,3 +114,8 @@ Route::group(['middleware' => ['auth']], function() {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::get('/send-email', 'App\Http\Controllers\UserController@sendemail');
+
+
+
