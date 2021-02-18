@@ -16,11 +16,15 @@
 <div class="container">
     <div class="row h-100 align-items-center">
         <div class="col-xl-12">
-
-            <div class="card">
-                <div class="card-body">
+	<div class="card">
+	@if(session()->get('emailNOtExist'))
+        <div class="alert alert-danger">
+                <strong>Whoops</strong> The Email is not added by the Black Box Admin
+        </div>
+        @endif                
+	<div class="card-body">
                     <div class="row">
-                        <div class="col-xl-6 col-md-6 login-bg"></div>
+		       <div class="col-xl-6 col-md-6 login-bg"></div>
                         <div class="col-xl-6 col-md-6 login-form">
                             <div class="login-logo">
                                 <img src="{{ asset('assets/img/logo/logo.png') }}" class="img-fluid"/>

@@ -8,6 +8,7 @@ use Exception;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use DB;
+use Redirect;
 class GoogleController extends Controller
 {
     /**
@@ -40,7 +41,8 @@ class GoogleController extends Controller
                 return redirect()->intended('/');
 
             }else{
-                return redirect('/login')->with('success','User Not created.');
+		$emailNotCreated =1;
+              	return redirect()->to('/login')->with('emailNotCreated', $emailNotCreated);
                 // $empId = User::orderBy('id','DESC')->first();
                 // $empId =$empId->employee_number + 1;
                 // $newUser = User::create([

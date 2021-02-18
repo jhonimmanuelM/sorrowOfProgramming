@@ -168,7 +168,7 @@ class UserController extends Controller
             $filename = $file->getClientOriginalName();
             $file->move('storage/photos', $filename);
             // $fullpath = $filename . '.' . $extension ; // adding full
-            $avatar = "http://localhost:8000/"."storage/photos/".$filename;
+            $avatar = "http://sop.dckap.co/"."storage/photos/".$filename;
             $input = $request->all() + ['name' => $request->first_name.' '.$request->last_name,'avatar' => $avatar];
             $user = User::find($id);
             $user->update($input);
